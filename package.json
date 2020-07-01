@@ -11,5 +11,12 @@
     "shared",
     "frontend",
     "serverless/*"
-  ]
+  ],
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
+  }
 }
