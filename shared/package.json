@@ -1,0 +1,51 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "generate": "graphql-codegen --config codegen.yml"
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,md,yaml,yml,json}": "prettier --write"
+  },
+  "name": "shared",
+  "author": "jimador",
+  "module": "dist/shared.esm.js",
+  "devDependencies": {
+    "@graphql-codegen/cli": "1.16.0",
+    "@graphql-codegen/introspection": "1.16.0",
+    "@graphql-codegen/typescript": "^1.16.0",
+    "husky": "^4.2.5",
+    "tsdx": "^0.13.2",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "graphql": "^15.2.0"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "test-full-stack",
+  "version": "0.0.1",
+  "description": "Superformula full stack test",
+  "main": "index.js",
+  "repository": "git@github.com-tmp:jimador-sf/test-full-stack.git",
+  "author": "jimador <james@dunnam.dev>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "shared",
+    "frontend",
+    "serverless/*"
+  ]
+}
