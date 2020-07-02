@@ -54,21 +54,9 @@ resources:
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
-          - AttributeName: name
-            AttributeType: S
-          - AttributeName: address
-            AttributeType: S
-          - AttributeName: dob
-            AttributeType: S
-          - AttributeName: description
-            AttributeType: S
-          - AttributeName: createdAt
-            AttributeType: S
-          - AttributeName: updatedAt
-            AttributeType: S
         ProvisionedThroughput:
-          ReadCapacityUnits: 10
-          WriteCapacityUnits: 10
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
 
 ServiceRole:
   Type: "AWS::IAM::Role"
