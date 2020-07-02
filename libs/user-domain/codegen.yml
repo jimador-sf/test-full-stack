@@ -8,3 +8,7 @@ generates:
   libs/user-domain/src/lib/generated/user.ts:
     plugins:
       - typescript-type-graphql
+      - typescript-operations
+    config:
+      scalars:
+        ISODateScalar: Date

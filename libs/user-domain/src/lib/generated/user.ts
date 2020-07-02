@@ -8,25 +8,9 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** RFC 3339 Date type */
-  Date: any;
+  /** ISO 8061 Date Scalar */
+  ISODateScalar: Date;
 };
-
-/** User create input. */
-@TypeGraphQL.InputType()
-export class UserInput {
-  @TypeGraphQL.Field((type) => String)
-  name!: Scalars['String'];
-
-  @TypeGraphQL.Field((type) => Date)
-  dob!: Scalars['Date'];
-
-  @TypeGraphQL.Field((type) => String)
-  address!: Scalars['String'];
-
-  @TypeGraphQL.Field((type) => String)
-  description!: Scalars['String'];
-}
 
 /** User domain object */
 @TypeGraphQL.ObjectType()
@@ -40,7 +24,7 @@ export class User {
   name!: Scalars['String'];
 
   @TypeGraphQL.Field((type) => Date)
-  dob!: Scalars['Date'];
+  dob!: Scalars['ISODateScalar'];
 
   @TypeGraphQL.Field((type) => String)
   address!: Scalars['String'];
@@ -49,8 +33,24 @@ export class User {
   description!: Scalars['String'];
 
   @TypeGraphQL.Field((type) => Date)
-  createdAt!: Scalars['Date'];
+  createdAt!: Scalars['ISODateScalar'];
 
   @TypeGraphQL.Field((type) => Date)
-  updatedAt!: Scalars['Date'];
+  updatedAt!: Scalars['ISODateScalar'];
+}
+
+/** User create input. */
+@TypeGraphQL.InputType()
+export class UserInput {
+  @TypeGraphQL.Field((type) => String)
+  name!: Scalars['String'];
+
+  @TypeGraphQL.Field((type) => Date)
+  dob!: Scalars['ISODateScalar'];
+
+  @TypeGraphQL.Field((type) => String)
+  address!: Scalars['String'];
+
+  @TypeGraphQL.Field((type) => String)
+  description!: Scalars['String'];
 }
