@@ -15,11 +15,11 @@ User domain object
 type User {
   id: ID!
   name: String!
-  dob: String!
+  dob: Date!
   address: String!
   description: String!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: Date!
+  updatedAt: Date!
 }
 
 """

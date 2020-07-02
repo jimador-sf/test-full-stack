@@ -6,6 +6,7 @@ const tableName = 'User';
 
 export interface UserRepository {
   findAll(): Promise<User[]>
+
   save(user: UserInput): Promise<User>
 }
 
@@ -16,7 +17,7 @@ export const userRepository: UserRepository = new (class implements UserReposito
   }
 
   async save(user: UserInput): Promise<User> {
-    const now = Date.now()
+    const now = Date.now();
     const params = {
       TableName: tableName,
       Item: {

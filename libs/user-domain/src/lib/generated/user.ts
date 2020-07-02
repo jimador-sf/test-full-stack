@@ -39,8 +39,8 @@ export class User {
   @TypeGraphQL.Field((type) => String)
   name!: Scalars['String'];
 
-  @TypeGraphQL.Field((type) => String)
-  dob!: Scalars['String'];
+  @TypeGraphQL.Field((type) => Date)
+  dob!: Scalars['Date'];
 
   @TypeGraphQL.Field((type) => String)
   address!: Scalars['String'];
@@ -48,9 +48,9 @@ export class User {
   @TypeGraphQL.Field((type) => String)
   description!: Scalars['String'];
 
-  @TypeGraphQL.Field((type) => String)
-  createdAt!: Scalars['String'];
+  @TypeGraphQL.Field((type) => Date)
+  createdAt!: Scalars['Date'];
 
-  @TypeGraphQL.Field((type) => String)
-  updatedAt!: Scalars['String'];
+  @TypeGraphQL.Field((type) => Date)
+  updatedAt!: Scalars['Date'];
 }

@@ -12,12 +12,12 @@ export default class ProductResolver {
     const result = await userRepository.findAll();
     return result;
   }
-  //
-  // @Mutation(_ => User)
-  // async addUser(
-  //   @Arg("user") user: UserInput,
-  // ): Promise<User> {
-  //   const result = await userRepository.save(user);
-  //   return result;
-  // }
+
+  @Mutation(_ => User)
+  async addUser(
+    @Arg("user") user: UserInput,
+  ): Promise<User> {
+    const result = await userRepository.save(user);
+    return result;
+  }
 }
