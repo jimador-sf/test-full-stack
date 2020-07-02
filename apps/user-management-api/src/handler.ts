@@ -4,7 +4,7 @@ import UserResolver from './resolver/UserResolver';
 import { ApolloServer } from 'apollo-server-lambda';
 import { buildSchemaSync } from 'type-graphql';
 import * as path from 'path';
-import { ISODateScalar } from '../../../libs/user-domain/src/lib/scalars';
+import { ISODateScalar } from '@test-full-stack/user-domain';
 
 export const server = new ApolloServer({
   schema: buildSchemaSync({

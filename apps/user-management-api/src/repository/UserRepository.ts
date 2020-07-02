@@ -1,7 +1,6 @@
 import { User, UserInput } from '@test-full-stack/user-domain';
 import dynamoDb from '../configuration/DatabaseConfiguration';
 import { v1 } from 'uuid';
-import { LocalDate } from 'js-joda';
 
 const tableName = 'User';
 
