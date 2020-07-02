@@ -29,6 +29,7 @@ provider:
   region: us-east-1
   stage: dev
   runtime: nodejs10.x
+  memorySize: 256
 
 
 functions:
