@@ -1,14 +1,14 @@
 overwrite: true
-schema: 'libs/user-domain/src/lib/graphql/user-domain.graphql'
 hooks:
   afterAllFileWrite:
     - prettier --write
     - eslint --fix
 generates:
-  libs/user-domain/src/lib/generated/user.ts:
+  libs/user-domain/src/lib/generated/user-types.ts:
+    schema: 'libs/user-domain/src/lib/graphql/user-domain.graphql'
     plugins:
       - typescript-type-graphql
-      - typescript-operations
     config:
       scalars:
         ISODateScalar: Date
+

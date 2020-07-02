@@ -6,7 +6,7 @@ import { userRepository } from '../repository/UserRepository';
  * type-graphql {@link Resolver} for {@link User} data
  */
 @Resolver(User)
-export default class ProductResolver {
+export default class UserResolver {
   constructor() {
   }
 
@@ -23,15 +23,21 @@ export default class ProductResolver {
   }
 
   @Mutation(_ => User)
-  async addUser(
-    @Arg("user") user: UserInput,
-  ): Promise<User> {
+  async addUser(@Arg("user") user: UserInput): Promise<User> {
     const result = await userRepository.save(user);
     return result;
   }
 
-  @Mutation()
+  @Mutation(_ => User)
+  async updateUser(@Arg("user") user: UserInput,
+                   @Arg('id') id: string): Promise<User> {
+    const result = await userRepository.save(user, id);
+    return result;
+  }
+
+  @Mutation(_ => Boolean)
   async deleteUser(@Arg("id") id: string) {
     await userRepository.delete(id);
+    return true
   }
 }
