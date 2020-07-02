@@ -1,0 +1,498 @@
+{
+  "version": 1,
+  "projects": {
+    "geocoding-api": {
+      "root": "apps/geocoding-api",
+      "sourceRoot": "apps/geocoding-api/src",
+      "projectType": "application",
+      "prefix": "geocoding-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@flowaccount/nx-serverless:build",
+          "options": {
+            "outputPath": "dist/apps/geocoding-api",
+            "package": "apps/geocoding-api",
+            "serverlessConfig": "apps/geocoding-api/serverless.yml",
+            "servicePath": "apps/geocoding-api",
+            "tsConfig": "apps/geocoding-api/tsconfig.app.json",
+            "provider": "aws",
+            "processEnvironmentFile": "env.json"
+          },
+          "configurations": {
+            "dev": {
+              "optimization": false,
+              "sourceMap": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
+            "production": {
+              "optimization": true,
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/geocoding-api/environment.ts",
+                  "with": "apps/geocoding-api/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@flowaccount/nx-serverless:offline",
+          "options": {
+            "buildTarget": "geocoding-api:build",
+            "config": "apps/geocoding-api/serverless.yml",
+            "location": "dist/apps/geocoding-api"
+          },
+          "configurations": {
+            "dev": {
+              "buildTarget": "geocoding-api:build:dev"
+            },
+            "production": {
+              "buildTarget": "geocoding-api:build:production"
+            }
+          }
+        },
+        "deploy": {
+          "builder": "@flowaccount/nx-serverless:deploy",
+          "options": {
+            "buildTarget": "geocoding-api:build:production",
+            "config": "apps/geocoding-api/serverless.yml",
+            "location": "dist/apps/geocoding-api",
+            "package": "dist/apps/geocoding-api"
+          }
+        },
+        "destroy": {
+          "builder": "@flowaccount/nx-serverless:destroy",
+          "options": {
+            "buildTarget": "geocoding-api:build:production",
+            "config": "apps/geocoding-api/serverless.yml",
+            "location": "dist/apps/geocoding-api",
+            "package": "dist/apps/geocoding-api"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/geocoding-api/tsconfig.app.json",
+              "apps/geocoding-api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/geocoding-api/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/geocoding-api/jest.config.js",
+            "tsConfig": "apps/geocoding-api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "user-management-api": {
+      "root": "apps/user-management-api",
+      "sourceRoot": "apps/user-management-api/src",
+      "projectType": "application",
+      "prefix": "user-management-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@flowaccount/nx-serverless:build",
+          "options": {
+            "outputPath": "dist/apps/user-management-api",
+            "package": "apps/user-management-api",
+            "serverlessConfig": "apps/user-management-api/serverless.yml",
+            "servicePath": "apps/user-management-api",
+            "tsConfig": "apps/user-management-api/tsconfig.app.json",
+            "provider": "aws",
+            "processEnvironmentFile": "env.json"
+          },
+          "configurations": {
+            "dev": {
+              "optimization": false,
+              "sourceMap": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
+            "production": {
+              "optimization": true,
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/user-management-api/environment.ts",
+                  "with": "apps/user-management-api/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@flowaccount/nx-serverless:offline",
+          "options": {
+            "buildTarget": "user-management-api:build",
+            "config": "apps/user-management-api/serverless.yml",
+            "location": "dist/apps/user-management-api"
+          },
+          "configurations": {
+            "dev": {
+              "buildTarget": "user-management-api:build:dev"
+            },
+            "production": {
+              "buildTarget": "user-management-api:build:production"
+            }
+          }
+        },
+        "deploy": {
+          "builder": "@flowaccount/nx-serverless:deploy",
+          "options": {
+            "buildTarget": "user-management-api:build:production",
+            "config": "apps/user-management-api/serverless.yml",
+            "location": "dist/apps/user-management-api",
+            "package": "dist/apps/user-management-api"
+          }
+        },
+        "destroy": {
+          "builder": "@flowaccount/nx-serverless:destroy",
+          "options": {
+            "buildTarget": "user-management-api:build:production",
+            "config": "apps/user-management-api/serverless.yml",
+            "location": "dist/apps/user-management-api",
+            "package": "dist/apps/user-management-api"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/user-management-api/tsconfig.app.json",
+              "apps/user-management-api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/user-management-api/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/user-management-api/jest.config.js",
+            "tsConfig": "apps/user-management-api/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "appsync": {
+      "root": "apps/appsync",
+      "sourceRoot": "apps/appsync/src",
+      "projectType": "application",
+      "prefix": "appsync",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@flowaccount/nx-serverless:build",
+          "options": {
+            "outputPath": "dist/apps/appsync",
+            "package": "apps/appsync",
+            "serverlessConfig": "apps/appsync/serverless.yml",
+            "servicePath": "apps/appsync",
+            "tsConfig": "apps/appsync/tsconfig.app.json",
+            "provider": "aws",
+            "processEnvironmentFile": "env.json"
+          },
+          "configurations": {
+            "dev": {
+              "optimization": false,
+              "sourceMap": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
+            "production": {
+              "optimization": true,
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/appsync/environment.ts",
+                  "with": "apps/appsync/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@flowaccount/nx-serverless:offline",
+          "options": {
+            "buildTarget": "appsync:build",
+            "config": "apps/appsync/serverless.yml",
+            "location": "dist/apps/appsync"
+          },
+          "configurations": {
+            "dev": {
+              "buildTarget": "appsync:build:dev"
+            },
+            "production": {
+              "buildTarget": "appsync:build:production"
+            }
+          }
+        },
+        "deploy": {
+          "builder": "@flowaccount/nx-serverless:deploy",
+          "options": {
+            "buildTarget": "appsync:build:production",
+            "config": "apps/appsync/serverless.yml",
+            "location": "dist/apps/appsync",
+            "package": "dist/apps/appsync"
+          }
+        },
+        "destroy": {
+          "builder": "@flowaccount/nx-serverless:destroy",
+          "options": {
+            "buildTarget": "appsync:build:production",
+            "config": "apps/appsync/serverless.yml",
+            "location": "dist/apps/appsync",
+            "package": "dist/apps/appsync"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/appsync/tsconfig.app.json",
+              "apps/appsync/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/appsync/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/appsync/jest.config.js",
+            "tsConfig": "apps/appsync/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "user-domain": {
+      "root": "libs/user-domain",
+      "sourceRoot": "libs/user-domain/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/user-domain/tsconfig.lib.json",
+              "libs/user-domain/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/user-domain/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/user-domain/jest.config.js",
+            "tsConfig": "libs/user-domain/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        },
+        "generate": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "npx graphql-codegen --config libs/user-domain/codegen.yml"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "data-access": {
+      "root": "libs/data-access",
+      "sourceRoot": "libs/data-access/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/data-access/tsconfig.lib.json",
+              "libs/data-access/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/data-access/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/data-access/jest.config.js",
+            "tsConfig": "libs/data-access/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "feature-sets": {
+      "root": "libs/feature-sets",
+      "sourceRoot": "libs/feature-sets/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/feature-sets/tsconfig.lib.json",
+              "libs/feature-sets/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/feature-sets/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/feature-sets/jest.config.js",
+            "tsConfig": "libs/feature-sets/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
+  },
+  "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/react": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/web": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/nx-plugin": {
+      "plugin": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "geocoding-api"
+}

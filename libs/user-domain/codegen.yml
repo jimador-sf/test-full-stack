@@ -1,0 +1,6 @@
+overwrite: true
+schema: 'libs/user-domain/src/lib/graphql/user-domain.graphql'
+generates:
+  libs/user-domain/src/lib/generated/types.d.ts:
+    plugins:
+      - 'typescript'
