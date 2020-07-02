@@ -2,6 +2,16 @@ service: user-management-api
 frameworkVersion: ">=1.1.0 <2.0.0"
 plugins:
   - serverless-offline
+  - serverless-dynamodb-local
+
+custom:
+  dynamodb:
+    start:
+      migrate: true
+    stages:
+      - dev
+      - test
+
 package:
   individually: true
   excludeDevDependencies: false
@@ -9,16 +19,59 @@ package:
   custom:
     enable_optimize:
       local: false
+
 provider:
   name: aws
-  region: undefined
-  endpointType: undefined
+  region: us-east-1
   runtime: nodejs10.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        Fn::Join:
+          - ""
+          - - "arn:aws:dynamodb:*:*:table/"
+            - Ref: UserDynamoDbTable
+
 functions:
   hello-world:
     handler: src/handler.helloWorld
     events:
       - http:
-          path: hello-world
+          path: graphql
           method: get
-      
+
+resources:
+  Resources:
+    UserDynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: User
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: name
+            AttributeType: S
+          - AttributeName: address
+            AttributeType: S
+          - AttributeName: dob
+            AttributeType: S
+          - AttributeName: description
+            AttributeType: S
+          - AttributeName: createdAt
+            AttributeType: S
+          - AttributeName: updatedAt
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

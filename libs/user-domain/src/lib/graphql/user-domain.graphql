@@ -1,20 +1,10 @@
-"""
-User update input.
-"""
-input UserUpdateInput {
-  id: ID!
-  name: String!
-  dob: String!
-  address: String!
-  description: String!
-}
 
 """
 User create input.
 """
-input UserCreateInput {
+input UserInput {
   name: String!
-  dob: String!
+  dob: Date!
   address: String!
   description: String!
 }

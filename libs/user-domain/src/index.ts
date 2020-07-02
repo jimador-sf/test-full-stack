@@ -1,1 +1,1 @@
-export * from './lib/generated/types'
+export * from './lib/generated/user'
