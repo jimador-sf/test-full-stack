@@ -1,12 +1,16 @@
 service: user-management-api
+
 frameworkVersion: ">=1.1.0 <2.0.0"
+
 plugins:
-  - serverless-offline
   - serverless-dynamodb-local
+  - serverless-offline
 
 custom:
   dynamodb:
     start:
+      port: 8000
+      inMemory: true
       migrate: true
     stages:
       - dev
@@ -23,37 +27,30 @@ package:
 provider:
   name: aws
   region: us-east-1
+  stage: dev
   runtime: nodejs10.x
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:DescribeTable
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource:
-        Fn::Join:
-          - ""
-          - - "arn:aws:dynamodb:*:*:table/"
-            - Ref: UserDynamoDbTable
+
 
 functions:
-  hello-world:
-    handler: src/handler.helloWorld
+  user-management:
+    handler: src/handler.graphql
     events:
       - http:
           path: graphql
           method: get
+      - http:
+          path: graphql
+          method: post
 
 resources:
   Resources:
-    UserDynamoDbTable:
+    User:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: User
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
@@ -69,9 +66,38 @@ resources:
             AttributeType: S
           - AttributeName: updatedAt
             AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
         ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+          ReadCapacityUnits: 10
+          WriteCapacityUnits: 10
+
+ServiceRole:
+  Type: "AWS::IAM::Role"
+  Properties:
+    RoleName: "DynamoRole"
+    AssumeRolePolicyDocument:
+      Version: "2012-10-17"
+      Statement:
+        - Effect: "Allow"
+          Principal:
+            Service:
+              - "lambda.amazonaws.com"
+          Action:
+            - "sts:AssumeRole"
+    Policies:
+      - PolicyName: "Dynamo-ServiceRole-Policy"
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            -
+              Effect: "Allow"
+              Action:
+                - "dynamodb:Query"
+                - "dynamodb:BatchWriteItem"
+                - "dynamodb:GetItem"
+                - "dynamodb:DeleteItem"
+                - "dynamodb:PutItem"
+                - "dynamodb:Scan"
+                - "dynamodb:UpdateItem"
+              Resource:
+                - "arn:aws:dynamodb:us-east-1:*:table/User"
+                - "arn:aws:dynamodb:us-east-1:*:table/User/*"
