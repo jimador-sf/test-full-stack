@@ -1,23 +1,19 @@
+
 """
-User update input.
+ISO 8061 Date Scalar
 """
-input UserUpdateInput {
-  id: ID!
-  name: String!
-  dob: String!
-  address: String!
-  description: String!
-}
+scalar ISODateScalar
 
 """
 User create input.
 """
-input UserCreateInput {
+input UserInput {
   name: String!
-  dob: String!
+  dob: ISODateScalar!
   address: String!
   description: String!
 }
+
 
 """
 User domain object
@@ -25,14 +21,10 @@ User domain object
 type User {
   id: ID!
   name: String!
-  dob: String!
+  dob: ISODateScalar!
   address: String!
   description: String!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: ISODateScalar!
+  updatedAt: ISODateScalar!
 }
 
-"""
-RFC 3339 Date type
-"""
-scalar Date

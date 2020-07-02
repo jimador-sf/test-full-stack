@@ -1,11 +1,18 @@
-import { APIGatewayProxyHandler } from "aws-lambda";
+import 'reflect-metadata';
 
-export const helloWorld: APIGatewayProxyHandler = async (event, _context, callback) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless Webpack (Typescript) v1.0! Your function executed successfully!',
-      input: event,
-    }, null, 2),
-  };
-};
+import UserResolver from './resolver/UserResolver';
+import { ApolloServer } from 'apollo-server-lambda';
+import { buildSchemaSync } from 'type-graphql';
+import * as path from 'path';
+import { ISODateScalar } from '@test-full-stack/user-domain';
+
+export const server = new ApolloServer({
+  schema: buildSchemaSync({
+    resolvers: [UserResolver],
+    emitSchemaFile: path.resolve('/tmp', 'schema.gql'),
+    validate: false,
+    scalarsMap: [{ type: Date, scalar: ISODateScalar }]
+  })
+});
+
+export const graphql = server.createHandler();

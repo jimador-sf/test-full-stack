@@ -494,5 +494,5 @@
       }
     }
   },
-  "defaultProject": "geocoding-api"
+  "defaultProject": "user-management-api"
 }
