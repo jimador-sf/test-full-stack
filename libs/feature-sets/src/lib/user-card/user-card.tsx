@@ -1,19 +1,16 @@
 import React from 'react';
+import { UserCardContainer, UserName } from './user-card.styles';
 
-import styled from '@emotion/styled';
+export interface UserCardProps {
+  name: string
+}
 
-/* eslint-disable-next-line */
-export interface UserCardProps {}
 
-const StyledUserCard = styled.div`
-  color: pink;
-`;
-
-export const UserCard = (props: UserCardProps) => {
+export const UserCard = ({ name }: UserCardProps) => {
   return (
-    <StyledUserCard>
-      <h1>Welcome to UserCard!</h1>
-    </StyledUserCard>
+    <UserCardContainer>
+      <UserName>{name}</UserName>
+    </UserCardContainer>
   );
 };
 

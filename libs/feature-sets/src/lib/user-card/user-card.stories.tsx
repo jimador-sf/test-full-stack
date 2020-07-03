@@ -1,14 +1,14 @@
 import React from 'react';
 import { UserCard, UserCardProps } from './user-card';
+import { text } from '@storybook/addon-knobs';
 
 export default {
   component: UserCard,
-  title: 'UserCard',
+  title: 'UserCard'
 };
 
 export const primary = () => {
-  /* eslint-disable-next-line */
-  const props: UserCardProps = {};
+  const props: UserCardProps = { name: text('name', 'john smith') };
 
-  return <UserCard />;
+  return <UserCard {...props} />;
 };
