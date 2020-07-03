@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import UserTile from './user-tile';
+import UserCard from './user-card';
 
-describe(' UserTile', () => {
+describe(' UserCard', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<UserTile />);
+    const { baseElement } = render(<UserCard />);
     expect(baseElement).toBeTruthy();
   });
 });
