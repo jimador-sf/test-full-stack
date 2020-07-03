@@ -8,9 +8,11 @@ export interface UserCardProps {
 
 export const UserCard = ({ name }: UserCardProps) => {
   return (
-    <UserCardContainer>
-      <UserName>{name}</UserName>
-    </UserCardContainer>
+    <>
+      <UserCardContainer>
+        <UserName>{name}</UserName>
+      </UserCardContainer>
+    </>
   );
 };
 
