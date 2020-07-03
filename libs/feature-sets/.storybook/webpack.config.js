@@ -5,7 +5,7 @@ module.exports = async ({ config, mode }) => {
 
   config.resolve.extensions.push('.tsx');
   config.resolve.extensions.push('.ts');
-  config.module.rules.push({
+  const babelLoader = {
     test: /\.(ts|tsx)$/,
     loader: require.resolve('babel-loader'),
     options: {
@@ -15,6 +15,16 @@ module.exports = async ({ config, mode }) => {
         '@babel/preset-typescript',
       ],
     },
-  });
+  };
+  const fileLoader = {
+    test: /\.(png|jpe?g|gif)$/i,
+    use: [
+      {
+        loader: require.resolve('file-loader'),
+      },
+    ],
+  };
+  config.module.rules.push(babelLoader);
+  config.module.rules.push(fileLoader);
   return config;
 };

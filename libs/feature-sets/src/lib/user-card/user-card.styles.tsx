@@ -11,9 +11,6 @@ export const UserCardContainer = styled.div<{}, ThemeDefinition>`
 `;
 
 export const UserName = styled.h2<{}, ThemeDefinition>`
-  font-family: ${props => props.theme.font.fontFamily};
-  font-style: ${props => props.theme.font.fontStyle};
-  font-weight: 600px;
   color: ${props => props.theme.colorScheme.foreground};
   margin-bottom: ${inset.XXL.s};
 `;

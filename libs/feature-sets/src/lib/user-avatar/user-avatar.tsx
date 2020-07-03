@@ -2,18 +2,23 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-/* eslint-disable-next-line */
-export interface UserAvatarProps {}
 
-const StyledUserAvatar = styled.div`
-  color: pink;
+export interface UserAvatarProps {
+  src: string;
+}
+
+const StyledUserAvatar = styled.img`
+  vertical-align: middle;
+  border-radius: 50%;
+  @media(min-width: 420px) {
+    width: 96px;
+    height: 96px;
+  }
 `;
 
-export const UserAvatar = (props: UserAvatarProps) => {
+export const UserAvatar = ({ src }: UserAvatarProps) => {
   return (
-    <StyledUserAvatar>
-      <h1>Welcome to UserAvatar!</h1>
-    </StyledUserAvatar>
+    <StyledUserAvatar src={src}/>
   );
 };
 

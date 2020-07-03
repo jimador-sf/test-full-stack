@@ -1,14 +1,10 @@
 import React from 'react';
-import { UserAvatar, UserAvatarProps } from './user-avatar';
+import { UserAvatar } from './user-avatar';
+import hipster from './hipster.png'
 
 export default {
   component: UserAvatar,
   title: 'UserAvatar',
 };
 
-export const primary = () => {
-  /* eslint-disable-next-line */
-  const props: UserAvatarProps = {};
-
-  return <UserAvatar />;
-};
+export const primary = () => (<UserAvatar src={hipster}/>);
