@@ -95,10 +95,7 @@
               "apps/geocoding-api/tsconfig.app.json",
               "apps/geocoding-api/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/geocoding-api/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/geocoding-api/**/*"]
           }
         },
         "test": {
@@ -205,10 +202,7 @@
               "apps/user-management-api/tsconfig.app.json",
               "apps/user-management-api/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/user-management-api/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/user-management-api/**/*"]
           }
         },
         "test": {
@@ -315,10 +309,7 @@
               "apps/appsync/tsconfig.app.json",
               "apps/appsync/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/appsync/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/appsync/**/*"]
           }
         },
         "test": {
@@ -345,10 +336,7 @@
               "libs/user-domain/tsconfig.lib.json",
               "libs/user-domain/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/user-domain/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/user-domain/**/*"]
           }
         },
         "test": {
@@ -385,10 +373,7 @@
               "libs/data-access/tsconfig.lib.json",
               "libs/data-access/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/data-access/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/data-access/**/*"]
           }
         },
         "test": {
@@ -425,10 +410,7 @@
               "libs/feature-sets/tsconfig.lib.json",
               "libs/feature-sets/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/feature-sets/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/feature-sets/**/*"]
           }
         },
         "test": {
@@ -437,6 +419,64 @@
             "jestConfig": "libs/feature-sets/jest.config.js",
             "tsConfig": "libs/feature-sets/tsconfig.spec.json",
             "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/feature-sets/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/feature-sets",
+            "config": {
+              "configFolder": "libs/feature-sets/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
+    "feature-sets-e2e": {
+      "root": "apps/feature-sets-e2e",
+      "sourceRoot": "apps/feature-sets-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/feature-sets-e2e/cypress.json",
+            "tsConfig": "apps/feature-sets-e2e/tsconfig.e2e.json",
+            "devServerTarget": "feature-sets:storybook"
+          },
+          "configurations": {
+            "ci": {
+              "devServerTarget": "feature-sets:storybook:ci"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": ["apps/feature-sets-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/feature-sets-e2e/**/*"]
           }
         }
       }
