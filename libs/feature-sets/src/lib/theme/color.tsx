@@ -5,11 +5,11 @@
  */
 export const colors = ['#000000', '#F8F8F8'] as const
 export const [dark, light] = colors
-
+export const white = '#FFFFFF'
 /**
  * Grey colors
  */
-const greyColor = {
+export const greyColor = {
   // Pure greys
   grey05: '#f2f2f2',
   grey10: '#1a1a1a',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserAvatar } from './user-avatar';
+import UserAvatar from './user-avatar';
 import hipster from './hipster.png'
 
 export default {

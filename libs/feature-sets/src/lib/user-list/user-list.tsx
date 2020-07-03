@@ -1,19 +1,30 @@
-import React from 'react';
-
-import styled from '@emotion/styled';
+import React, { useState } from 'react';
+import { StyledUserList } from './user-list.styles';
+import { User } from '@test-full-stack/user-domain';
+import { useGetUsers } from '../hooks/useGetUsers';
+import UserCard from '../user-card/user-card';
+import { Grid } from '../util/grid';
 
 /* eslint-disable-next-line */
-export interface UserListProps {}
+export interface UserListProps {
+}
 
-const StyledUserList = styled.div`
-  color: pink;
-`;
+export const UserList: React.FC<UserListProps> = (_props: UserListProps) => {
 
-export const UserList = (_props: UserListProps) => {
+  const data = useGetUsers();
+
   return (
-    <StyledUserList>
-      <h1>Welcome to UserList!</h1>
-    </StyledUserList>
+    <>
+      <StyledUserList>
+        <Grid columns={3} rows={2}>
+          {
+            data.map(user => (
+              <UserCard key={user.id} name={user.name} description={user.description}/>
+            ))
+          }
+        </Grid>
+      </StyledUserList>
+    </>
   );
 };
 

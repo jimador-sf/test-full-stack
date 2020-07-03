@@ -1,6 +1,7 @@
 import React from 'react';
 import { Global, css } from '@emotion/core';
-import { fontCss }  from './typography';
+import { fontCss } from './typography';
+
 
 const globalCss = css`
   html * {
@@ -8,11 +9,4 @@ const globalCss = css`
   }
 `;
 
-export const GlobalStyles = () => {
-  return (
-    <>
-      <Global styles={[fontCss, globalCss]}/>
-    </>
-  );
-
-};
+export const GlobalStyles = () => (<Global styles={[fontCss, globalCss]}/>);
