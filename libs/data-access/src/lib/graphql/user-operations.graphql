@@ -1,0 +1,47 @@
+mutation addUser($user: UserInput!) {
+  addUser(user: $user) {
+    name
+    address
+    dob
+    description
+    createdAt
+    updatedAt
+  }
+}
+
+mutation updateUser($id: String!, $user: UserInput!) {
+  updateUser(id: $id, user: $user) {
+    name
+    address
+    dob
+    description
+    createdAt
+    updatedAt
+  }
+}
+
+mutation deleteUser($id: String!) {
+  deleteUser(id: $id)
+}
+
+query findAll {
+  findAll {
+    name
+    address
+    dob
+    description
+    createdAt
+    updatedAt
+  }
+}
+
+query findOne($id: String!) {
+  findOne(id: $id) {
+    name
+    address
+    dob
+    description
+    createdAt
+    updatedAt
+  }
+}
