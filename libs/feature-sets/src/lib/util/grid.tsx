@@ -7,7 +7,7 @@ export interface CellProps {
   top: number;
   center: number;
   area: number;
-  middle: number;
+  middle: boolean;
 }
 
 export const Cell = styled.div<any>`
@@ -46,7 +46,7 @@ export interface GridProps {
   rowGap: number;
   areas: string[];
   justifyContent: number | string;
-  alignContent: number | string;
+  alignContent: string;
   columns: number | string;
 }
 export const Grid = styled.div<any>`
@@ -62,4 +62,5 @@ export const Grid = styled.div<any>`
   ${({ areas }) => areas && `grid-template-areas: ${formatAreas(areas)}`};
   ${({ justifyContent }) => justifyContent && `justify-content: ${justifyContent}`};
   ${({ alignContent }) => alignContent && `align-content: ${alignContent}`};
+  background: '#F8F8F8';
 `;

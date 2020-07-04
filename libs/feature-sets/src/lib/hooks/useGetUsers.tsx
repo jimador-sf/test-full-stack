@@ -3,7 +3,7 @@ import * as f from 'factory.ts';
 import * as faker from 'faker';
 import { v1 } from 'uuid';
 
-const nameGen: () => f.Sync.Generator<string> = () => f.each(() => faker.lorem.word());
+const nameGen: () => f.Sync.Generator<string> = () => f.each(() => faker.address.streetName());
 const addressGen: () => f.Sync.Generator<string> = () => f.each(() => faker.address.streetName());
 const descriptionGen: () => f.Sync.Generator<string> = () => f.each(() => faker.lorem.words(5));
 const dateGen: () => f.Sync.Generator<Date> = () => f.each(() => faker.date.recent(1000));
