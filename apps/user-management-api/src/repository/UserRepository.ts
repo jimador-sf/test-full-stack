@@ -1,7 +1,7 @@
-import { User, UserInput } from '@test-full-stack/user-domain';
 import dynamoDb from '../configuration/DatabaseConfiguration';
 import { v1 } from 'uuid';
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
+import { UserInput, User } from '../domain/user';
 
 export const UserTableName = 'User';
 export const UserTable = { TableName: UserTableName };

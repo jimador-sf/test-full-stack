@@ -16,7 +16,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@test-full-stack/user-domain": ["libs/user-domain/src/index.ts"],
       "@test-full-stack/data-access": ["libs/data-access/src/index.ts"],
       "@test-full-stack/feature-sets": ["libs/feature-sets/src/index.ts"]
     }

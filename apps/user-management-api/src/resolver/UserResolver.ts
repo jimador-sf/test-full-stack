@@ -1,5 +1,5 @@
 import { Resolver, Query, Arg, Mutation } from 'type-graphql';
-import { User, UserInput } from '@test-full-stack/user-domain';
+import { User, UserInput } from '../domain/user';
 import { userRepository } from '../repository/UserRepository';
 
 /**

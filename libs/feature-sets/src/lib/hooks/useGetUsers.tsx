@@ -1,7 +1,7 @@
-import { User } from '@test-full-stack/user-domain';
 import * as f from 'factory.ts';
 import * as faker from 'faker';
 import { v1 } from 'uuid';
+import { User } from '@test-full-stack/data-access';
 
 const nameGen: () => f.Sync.Generator<string> = () => f.each(() => faker.address.streetName());
 const addressGen: () => f.Sync.Generator<string> = () => f.each(() => faker.address.streetName());

@@ -322,43 +322,6 @@
         }
       }
     },
-    "user-domain": {
-      "root": "libs/user-domain",
-      "sourceRoot": "libs/user-domain/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:lint",
-          "options": {
-            "linter": "eslint",
-            "tsConfig": [
-              "libs/user-domain/tsconfig.lib.json",
-              "libs/user-domain/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/user-domain/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/user-domain/jest.config.js",
-            "tsConfig": "libs/user-domain/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        },
-        "generate": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "commands": [
-              {
-                "command": "npx graphql-codegen --config libs/user-domain/codegen.yml"
-              }
-            ]
-          }
-        }
-      }
-    },
     "data-access": {
       "root": "libs/data-access",
       "sourceRoot": "libs/data-access/src",
