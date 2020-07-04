@@ -1,14 +1,7 @@
-import React from 'react';
-
 import styled from '@emotion/styled';
 import { white } from '../styles/global';
-import UserButton from '../user-button/user-button';
 
-/* eslint-disable-next-line */
-export interface UserLoadMoreButtonProps {
-}
-
-const StyledUserLoadMoreButton = styled.button`
+export const StyledUserButton = styled.button`
   width: 280px;
   height: 90px;
   display: flex;
@@ -19,7 +12,7 @@ const StyledUserLoadMoreButton = styled.button`
   border-radius: 8px;
 `;
 
-const BtnText = styled.text`
+export const BtnText = styled.text`
   position: absolute;
   width: 252px;
   height: 68px;
@@ -35,11 +28,3 @@ const BtnText = styled.text`
   justify-content: center;
   color: #000000;
 `;
-
-export const UserLoadMoreButton = (props: UserLoadMoreButtonProps) => {
-  return (
-    <UserButton action={() => alert('ouch')} buttonText={'Load More'}/>
-  );
-};
-
-export default UserLoadMoreButton;

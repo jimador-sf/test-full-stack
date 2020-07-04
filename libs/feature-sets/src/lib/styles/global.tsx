@@ -7,8 +7,7 @@ const fontCss = css`
   @font-face{
       font-family: 'Source Sans Pro';
       font-style: normal;
-      font-stretch: normal;
-      src: url('/libs/feature-sets/assets/fonts/source-sans-pro/SourceSansPro-Regular.ttf.woff2') format('woff2'),
+      src: url('/libs/feature-sets/assets/fonts/source-sans-pro/SourceSansPro-Light.ttf.woff2') format('woff2'),
   }
 `;
 

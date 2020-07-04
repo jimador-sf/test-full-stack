@@ -1,3 +1,4 @@
+export * from './lib/user-button/user-button';
 export * from './lib/hero/hero';
 export * from './lib/footer/footer';
 export * from './lib/user-card/user-card';
