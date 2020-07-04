@@ -62,5 +62,4 @@ export const Grid = styled.div<any>`
   ${({ areas }) => areas && `grid-template-areas: ${formatAreas(areas)}`};
   ${({ justifyContent }) => justifyContent && `justify-content: ${justifyContent}`};
   ${({ alignContent }) => alignContent && `align-content: ${alignContent}`};
-  background: '#F8F8F8';
 `;

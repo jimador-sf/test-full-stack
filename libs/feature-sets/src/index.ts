@@ -1,3 +1,5 @@
+export * from './lib/hero/hero';
+export * from './lib/footer/footer';
 export * from './lib/user-card/user-card';
 export * from './lib/user-location-map/user-location-map';
 export * from './lib/user-details-form/user-details-form';

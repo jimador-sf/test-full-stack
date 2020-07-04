@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
+import { whiteSmoke } from '../styles/global';
 
 export const StyledUserList = styled.div({
-
-  background: '#F8F8F8',
-
+  background: whiteSmoke,
+  display: 'flex',
+  alignItems: 'space-evenly',
+  justifyContent: 'space-evenly'
 });

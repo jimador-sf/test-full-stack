@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { white } from '../theme/color';
+import { white } from '../styles/global';
 
 const shadow = {
   boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1);'
@@ -53,7 +53,6 @@ export const Description = styled.div({
 
 
 export const Truncate = styled.text({
-  position: 'absolute',
   flex: 1,
   whiteSpace: 'nowrap',
   overflow: 'hidden',

@@ -12,7 +12,7 @@ export interface UserCardProps {
 export const UserCard = ({ name, description }: UserCardProps) => {
   return (
     <>
-      <Cell middle={true}>
+      <Cell>
         <StyledUserCard>
           <UserAvatar src={hipster}/>
           <UserName>

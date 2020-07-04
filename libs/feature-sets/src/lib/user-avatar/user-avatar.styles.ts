@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { UserAvatarProps } from '@test-full-stack/feature-sets';
+import { white } from '../styles/global';
 
 export const StyledUserAvatar = styled.div<UserAvatarProps>({
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
-  color: "#FFF",
+  color: white,
   position: "relative",
   width: "168px",
   height: "168px",
