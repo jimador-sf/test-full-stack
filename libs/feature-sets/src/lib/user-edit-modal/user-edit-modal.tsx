@@ -9,9 +9,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { InteractiveMap, Marker } from 'react-map-gl';
 import UserSearchInput from '../user-search-input/user-search-input';
 
-// TODO - Configuration
-const TOKEN = `pk.eyJ1IjoiamR1bm5hbSIsImEiOiJja2M3dDIzMTkwNnZ2MnBwcTVkbGw0NW4wIn0.gWACb0ktQ7RGC8oOXHiuNQ`;
-
+const TOKEN = process.env.MAPBOX_ACCESS_TOKEN;
 
 /* eslint-disable-next-line */
 export interface UserEditModalProps {

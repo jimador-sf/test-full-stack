@@ -1,11 +1,12 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import UserAvatar from './user-avatar';
+import UserAvatar, { UserAvatarProps } from './user-avatar';
 
 describe(' UserAvatar', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<UserAvatar />);
+    const props: UserAvatarProps = { src: `./hipster.png`}
+    const { baseElement } = render(<UserAvatar {...props} />);
     expect(baseElement).toBeTruthy();
   });
 });

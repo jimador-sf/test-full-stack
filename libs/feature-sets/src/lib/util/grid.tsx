@@ -19,8 +19,7 @@ export const Cell = styled.div<any>`
   ${({ top }) => top && `grid-row-start: ${top}`};
   ${({ center }) => center && `text-align: center`};
   ${({ area }) => area && `grid-area: ${area}`};
-  ${/* prettier-ignore */
-  ({ middle }) => middle && `
+  ${({ middle }) => middle && `
     display: inline-flex;
     flex-flow: column wrap;
     justify-content: center;
@@ -30,7 +29,7 @@ export const Cell = styled.div<any>`
 
 const autoRows = ({ minRowHeight = "20px" }) => `minmax(${minRowHeight}, auto)`;
 
-const frGetter = value =>
+const fr = value =>
   typeof value === "number" ? `repeat(${value}, 1fr)` : value;
 
 const gap = ({ gap = "8px" }) => gap;
@@ -54,8 +53,8 @@ export const Grid = styled.div<any>`
   height: ${({ height = "auto" }) => height};
   grid-auto-flow: ${flow};
   grid-auto-rows: ${autoRows};
-  ${({ rows }) => rows && `grid-template-rows: ${frGetter(rows)}`};
-  grid-template-columns: ${({ columns = 12 }) => frGetter(columns)};
+  ${({ rows }) => rows && `grid-template-rows: ${fr(rows)}`};
+  grid-template-columns: ${({ columns = 12 }) => fr(columns)};
   grid-gap: ${gap};
   ${({ columnGap }) => columnGap && `column-gap: ${columnGap}`};
   ${({ rowGap }) => rowGap && `row-gap: ${rowGap}`};

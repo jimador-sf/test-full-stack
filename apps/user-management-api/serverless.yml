@@ -14,7 +14,6 @@ custom:
       migrate: true
     stages:
       - dev
-      - test
 
 package:
   individually: true
