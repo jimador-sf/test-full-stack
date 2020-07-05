@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyledUserCard, UserName, Description, Truncate } from './user-card.styles';
 import UserAvatar from '../user-avatar/user-avatar';
-import hipster from '../user-avatar/hipster.png';
 import { Cell } from '../util/grid';
 
 export interface UserCardProps {
@@ -14,7 +13,7 @@ export const UserCard = ({ name, description }: UserCardProps) => {
     <>
       <Cell>
         <StyledUserCard>
-          <UserAvatar src={hipster}/>
+          <UserAvatar src={'../user-avatar/hipster.png'}/>
           <UserName>
             <Truncate>
               {name}
