@@ -15,7 +15,10 @@ TypeScript/NodeJS AWS lambda GraphQL API for User Management.
 - [ ] Local DynamoDB install https://www.serverless.com/plugins/serverless-dynamodb-local
 - [ ] Amazon AWS account and `awscli` installed and configured: <https://aws.amazon.com/getting-started/>
 
-
+### Running locally
+```bash
+sls dynamodb start && nx serve user-management-api --port=<SOME_PORT>
+```
 
 
 

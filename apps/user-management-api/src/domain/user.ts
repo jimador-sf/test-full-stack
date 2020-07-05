@@ -1,5 +1,3 @@
-import * as TypeGraphQL from 'type-graphql';
-
 export interface Scalars {
   ID: string;
   String: string;
@@ -10,45 +8,15 @@ export interface Scalars {
   ISODateScalar: Date;
 }
 
-/** User domain object */
-@TypeGraphQL.ObjectType()
-export class User {
-  __typename?: 'User';
-
-  @TypeGraphQL.Field((_type) => TypeGraphQL.ID)
-  id!: Scalars['ID'];
-
-  @TypeGraphQL.Field((_type) => String)
-  name!: Scalars['String'];
-
-  @TypeGraphQL.Field((_type) => Date)
-  dob!: Scalars['ISODateScalar'];
-
-  @TypeGraphQL.Field((_type) => String)
-  address!: Scalars['String'];
-
-  @TypeGraphQL.Field((_type) => String)
-  description!: Scalars['String'];
-
-  @TypeGraphQL.Field((_type) => Date)
-  createdAt!: Scalars['ISODateScalar'];
-
-  @TypeGraphQL.Field((_type) => Date)
-  updatedAt!: Scalars['ISODateScalar'];
+export interface IUser extends IUserInput{
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-/** User create input. */
-@TypeGraphQL.InputType()
-export class UserInput {
-  @TypeGraphQL.Field((_type) => String)
-  name!: Scalars['String'];
-
-  @TypeGraphQL.Field((_type) => Date)
-  dob!: Scalars['ISODateScalar'];
-
-  @TypeGraphQL.Field((_type) => String)
-  address!: Scalars['String'];
-
-  @TypeGraphQL.Field((_type) => String)
-  description!: Scalars['String'];
+export interface IUserInput {
+  name: string;
+  dob: Date;
+  address: string;
+  description: string;
 }

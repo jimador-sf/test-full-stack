@@ -46,6 +46,13 @@
     "feature-sets-e2e": {
       "tags": [],
       "implicitDependencies": ["feature-sets"]
+    },
+    "user-management-app": {
+      "tags": []
+    },
+    "user-management-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["user-management-app"]
     }
   }
 }

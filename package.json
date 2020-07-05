@@ -36,6 +36,7 @@
     "aws-sdk": "^2.709.0",
     "deck.gl": "^8.2.0",
     "facepaint": "^1.2.1",
+    "graphql": "^15.2.0",
     "js-joda": "^1.11.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -45,7 +46,9 @@
     "react-modal": "^3.11.2",
     "reflect-metadata": "^0.1.13",
     "runtypes": "^4.3.0",
-    "type-graphql": "0.17.6"
+    "type-graphql": "1.0.0-rc.1",
+    "document-register-element": "1.13.1",
+    "react-router-dom": "5.2.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1000.0",
@@ -80,6 +83,7 @@
     "babel-loader": "8.1.0",
     "cypress": "^4.9.0",
     "dotenv": "^8.2.0",
+    "dynamodb-local": "^0.0.31",
     "eslint": "^7.3.1",
     "eslint-config-prettier": "6.0.0",
     "eslint-plugin-cypress": "^2.10.3",
@@ -90,12 +94,17 @@
     "prettier": "2.0.4",
     "serverless": "1.58.0",
     "serverless-dynamodb-client": "^0.0.2",
-    "serverless-dynamodb-local": "0.2.35",
+    "serverless-dynamodb-local": "^0.2.39",
     "serverless-offline": "^5.12.0",
     "storybook-addon-emotion-theme": "^2.1.1",
     "ts-jest": "25.2.1",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "@nrwl/cypress": "9.5.1",
+    "@nrwl/web": "9.5.1",
+    "@types/react": "16.9.38",
+    "@types/react-dom": "16.9.8",
+    "@types/react-router-dom": "5.1.5"
   }
 }

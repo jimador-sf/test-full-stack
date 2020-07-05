@@ -1,7 +1,7 @@
 import dynamoDb from '../configuration/DatabaseConfiguration';
 import { v1 } from 'uuid';
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
-import { UserInput, User } from '../domain/user';
+import { IUserInput, IUser } from '../domain';
 
 export const UserTableName = 'User';
 export const UserTable = { TableName: UserTableName };
@@ -18,7 +18,7 @@ const byId = (userId: string): DocumentClient.GetItemInput =>
  * @param userInput the user data to save or update
  * @param userId the user id to update.
  */
-const saveUserInput = (userInput: UserInput, userId?: string):
+const saveOrUpdate = (userInput: IUserInput, userId?: string):
   DocumentClient.PutItemInput => {
   const id = userId ?? v1();
   const now = new Date().toISOString();
@@ -40,11 +40,11 @@ const saveUserInput = (userInput: UserInput, userId?: string):
  * Repository interface for {@link User} CRUD methods
  */
 export interface UserRepository {
-  findAll(): Promise<User[]>
+  findAll(): Promise<IUser[]>
 
-  findOne(userId: string): Promise<User | undefined>
+  findOne(userId: string): Promise<IUser | undefined>
 
-  save(user: UserInput, userId?: string): Promise<User>
+  save(user: IUserInput, userId?: string): Promise<IUser>
 
   delete(userId: string): Promise<void>;
 }
@@ -55,20 +55,20 @@ export interface UserRepository {
 export const userRepository: UserRepository = new (class implements UserRepository {
 
   // TODO - Tech Debt - remove `any`
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<IUser[]> {
     const result = await dynamoDb.scan(UserTable).promise();
     return result.Items as any;
   }
 
   // TODO - Tech Debt - remove `any`
-  async findOne(id: string): Promise<User | undefined> {
+  async findOne(id: string): Promise<IUser | undefined> {
     const params = byId(id);
     const r = await dynamoDb.get(params).promise();
     return r.Item as any;
   }
 
-  async save(userInput: UserInput, userId?: string): Promise<User> {
-    const params = saveUserInput(userInput, userId);
+  async save(userInput: IUserInput, userId?: string): Promise<IUser> {
+    const params = saveOrUpdate(userInput, userId);
     await dynamoDb.put(params).promise();
     const saved = await this.findOne(params.Item.id);
     return saved;

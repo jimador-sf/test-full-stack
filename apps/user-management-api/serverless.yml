@@ -3,7 +3,7 @@ service: user-management-api
 frameworkVersion: ">=1.1.0 <2.0.0"
 
 plugins:
-  - serverless-dynamodb-local
+#  - serverless-dynamodb-local
   - serverless-offline
 
 custom:
@@ -49,9 +49,11 @@ functions:
       - http:
           path: graphql
           method: get
+          cors: false
       - http:
           path: graphql
           method: post
+          cors: false
 
 resources:
   Resources:
