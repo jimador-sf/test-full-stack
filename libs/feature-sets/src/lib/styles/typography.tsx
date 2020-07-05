@@ -1,5 +1,3 @@
-import { css } from '@emotion/core';
-
 export type FontSizeBreakPoint = 'sm' | 'med' | 'lg'
 export type FontFamily = 'Source Sans Pro'
 export type FontStyle = 'normal'

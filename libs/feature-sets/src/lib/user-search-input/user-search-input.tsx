@@ -1,20 +1,15 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
+
 import React from 'react';
+import AlgoliaPlaces from 'algolia-places-react';
+import { inputCss } from '../user-edit-modal/user-edit-modal.styles';
 
-import styled from '@emotion/styled';
-
-/* eslint-disable-next-line */
-export interface UserSearchInputProps {}
-
-const StyledUserSearchInput = styled.div`
-  color: pink;
-`;
-
-export const UserSearchInput = (props: UserSearchInputProps) => {
-  return (
-    <StyledUserSearchInput>
-      <h1>Welcome to UserSearchInput!</h1>
-    </StyledUserSearchInput>
-  );
+export const UserSearchInput = (props) => {
+  return <AlgoliaPlaces css={inputCss}
+                        placeholder={''}
+                        {...props}
+  />;
 };
 
 export default UserSearchInput;

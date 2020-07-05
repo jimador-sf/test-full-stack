@@ -3,7 +3,6 @@ import { useGetUsers } from '../hooks/useGetUsers';
 import UserCard from '../user-card/user-card';
 import { Grid, Cell } from '../util/grid';
 import { StyledUserList } from './user-list.styles';
-import Footer from '../footer/footer';
 
 /* eslint-disable-next-line */
 export interface UserListProps {

@@ -1,21 +1,17 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import styled from '@emotion/styled';
 import { Grid, Cell } from '../util/grid';
 import UserButton from '../user-button/user-button';
-import { inputCss, inputLabelCss, formCss, inputControlCss, headerText } from './user-edit-modal.styles';
+import { inputCss, inputLabelCss, formCss, inputControlCss, headerText, Pin, Pulse } from './user-edit-modal.styles';
 import { useForm } from 'react-hook-form';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { InteractiveMap } from 'react-map-gl';
-import DeckGL from '@deck.gl/react';
-import Geocoder from 'react-map-gl-geocoder';
+import { InteractiveMap, Marker } from 'react-map-gl';
+import UserSearchInput from '../user-search-input/user-search-input';
 
 // TODO - Configuration
 const TOKEN = `pk.eyJ1IjoiamR1bm5hbSIsImEiOiJja2M3dDIzMTkwNnZ2MnBwcTVkbGw0NW4wIn0.gWACb0ktQ7RGC8oOXHiuNQ`;
 
-const geolocateStyle = {
-  borderRadius: '8px'
-};
 
 /* eslint-disable-next-line */
 export interface UserEditModalProps {
@@ -35,14 +31,15 @@ const StyledUserEditModal = styled.div`
   padding: 65px;
 `;
 
-const HeaderText = styled.text(headerText);
+const HeaderText = styled.div(headerText);
+
+const MarkerElement = () => <><Pin/><Pulse/></>
 
 export const UserEditModal = (props: UserEditModalProps) => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = data => console.log(data);
   console.log(errors);
 
-  const _me = useRef();
 
   const [viewport, setViewport] = useState({
     latitude: 37.8,
@@ -52,16 +49,16 @@ export const UserEditModal = (props: UserEditModalProps) => {
     pitch: 0
   });
 
-  const [searchResultLayer, setSearchResultLayer] = useState({});
-
   const handleViewportChange = useCallback(updated => {
+    console.log(`handleViewportChange: ${JSON.stringify(updated)}`);
     setViewport({
       ...viewport, ...updated
     });
   }, [viewport]);
 
   const handleGeocoderViewportChange = useCallback(updated => {
-    const geocoderDefaultOverrides = { transitionDuration: 1000 };
+    console.log(`handleGeocoderViewportChange: ${JSON.stringify(updated)}`);
+    const geocoderDefaultOverrides = { transitionDuration: 250 };
 
     return handleViewportChange({
       ...updated,
@@ -69,21 +66,8 @@ export const UserEditModal = (props: UserEditModalProps) => {
     });
   }, [viewport, handleViewportChange]);
 
-  const handleOnResult = useCallback(event => {
-    setSearchResultLayer({
-      searchResultLayer: new DeckGL.GeoJsonLayer({
-        id: 'search-result',
-        data: event.result.geometry,
-        getFillColor: [255, 0, 0, 128],
-        getRadius: 1000,
-        pointRadiusMinPixels: 10,
-        pointRadiusMaxPixels: 10
-      })
-    });
-  }, [searchResultLayer, viewport]);
-
-
   return (
+    // TODO - God component
     <StyledUserEditModal>
       <Grid
         gap={'20px'}
@@ -100,7 +84,6 @@ export const UserEditModal = (props: UserEditModalProps) => {
         </Cell>
         <Cell area="map">
           <InteractiveMap
-            ref={_me}
             {...viewport}
             mapStyle={'mapbox://styles/mapbox/streets-v9'}
             width='100%'
@@ -108,14 +91,23 @@ export const UserEditModal = (props: UserEditModalProps) => {
             onViewportChange={handleViewportChange}
             mapboxApiAccessToken={TOKEN}
           >
-            <Geocoder
-              mapRef={_me}
-              onResult={handleOnResult}
-              onViewportChange={handleGeocoderViewportChange}
-              mapboxApiAccessToken={TOKEN}
-              position='top-left'
-            />
-            <DeckGL {...viewport} layers={[searchResultLayer]}/>
+            <Marker latitude={viewport.latitude}
+                    longitude={viewport.longitude}
+                    offsetLeft={-20}
+                    offsetTop={-10}
+                    draggable={true}
+                    onDragEnd={(({lngLat}) => {
+                      const [lng, lat] = lngLat
+                      handleGeocoderViewportChange(
+                        {
+                          latitude: lat,
+                          longitude: lng
+                        }
+                      )
+                    })}
+            >
+              {viewport.latitude && viewport.longitude && <MarkerElement/>}
+            </Marker>
           </InteractiveMap>
         </Cell>
         <Cell area="form">
@@ -133,10 +125,16 @@ export const UserEditModal = (props: UserEditModalProps) => {
             <InputControl>
               <InputLabel htmlFor={'location'}>Location</InputLabel>
               <br/>
-              <Input type="text"
-                     name="Location"
-                     id={'location'}
-                     ref={register({ required: true, max: 500, min: 1, maxLength: 500 })}
+              <UserSearchInput
+                htmlFor={'location'}
+                onChange={({ suggestion }) =>
+                  handleGeocoderViewportChange(
+                    {
+                      latitude: suggestion.latlng.lat,
+                      longitude: suggestion.latlng.lng
+                    }
+                  )
+                }
               />
             </InputControl>
             <InputControl>

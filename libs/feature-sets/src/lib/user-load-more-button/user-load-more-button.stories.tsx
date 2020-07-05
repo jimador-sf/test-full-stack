@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  UserLoadMoreButton,
-  UserLoadMoreButtonProps,
-} from './user-load-more-button';
+import { UserLoadMoreButton, UserLoadMoreButtonProps } from './user-load-more-button';
 
 export default {
   component: UserLoadMoreButton,

@@ -1,7 +1,6 @@
 import React from 'react';
 import { UserCard, UserCardProps } from './user-card';
 import { text } from '@storybook/addon-knobs';
-import { css } from '@emotion/core';
 
 export default {
   component: UserCard,

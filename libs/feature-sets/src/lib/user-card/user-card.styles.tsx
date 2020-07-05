@@ -52,7 +52,7 @@ export const Description = styled.div({
 });
 
 
-export const Truncate = styled.text({
+export const Truncate = styled.div({
   flex: 1,
   whiteSpace: 'nowrap',
   overflow: 'hidden',

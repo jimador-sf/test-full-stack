@@ -19,7 +19,7 @@ const StyledUserLoadMoreButton = styled.button`
   border-radius: 8px;
 `;
 
-const BtnText = styled.text`
+const BtnText = styled.div`
   position: absolute;
   width: 252px;
   height: 68px;

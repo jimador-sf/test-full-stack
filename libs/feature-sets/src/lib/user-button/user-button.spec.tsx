@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import UserEditCancelButton from './user-edit-cancel-button';
+import UserButton from './user-button';
 
-describe(' UserEditCancelButton', () => {
+describe(' UserButton', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<UserEditCancelButton />);
+    const { baseElement } = render(<UserButton />);
     expect(baseElement).toBeTruthy();
   });
 });
