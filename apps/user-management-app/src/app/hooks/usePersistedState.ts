@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useMemo, useState, useCallback, useEffect } f
 import { createBrowserHistory as createHistory } from 'history';
 
 /**
- * Wrap state with session storage write persistence.
+ * Hook to abstract write persistence for a key:value pair.
  */
 export function usePersistedState<T>(
   key: string,

@@ -9,6 +9,9 @@ const addressGen: () => f.Sync.Generator<string> = () => f.each(() => faker.addr
 const descriptionGen: () => f.Sync.Generator<string> = () => f.each(() => faker.lorem.words(5));
 const dateGen: () => f.Sync.Generator<Date> = () => f.each(() => faker.date.recent(1000));
 
+/**
+ * Hook to get the initial use list and a function to get the next list of users.
+ */
 export const useGetUsers = (): [User[], Dispatch<SetStateAction<number>>] => {
   const [current, nextPage] = usePagination();
 
