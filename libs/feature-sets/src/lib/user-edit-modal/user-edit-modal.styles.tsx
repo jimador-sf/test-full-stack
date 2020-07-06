@@ -20,7 +20,7 @@ export const inputCss = css`
   font-weight: normal;
   font-size: 24px;
   line-height: 30px;
-  display: flex;
+  display: grid;
   align-items: center;
 
   color: #000000;
@@ -50,7 +50,7 @@ export const headerText = css`
   font-weight: 300;
   font-size: 48px;
   line-height: 60px;
-  display: flex;
+  display: grid;
   align-items: center;
 
   color: #000000;

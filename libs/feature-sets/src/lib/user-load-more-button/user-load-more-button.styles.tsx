@@ -4,7 +4,7 @@ import { white } from '@test-full-stack/feature-sets';
 export const StyledUserLoadMoreButton = styled.button`
   width: 280px;
   height: 90px;
-  display: flex;
+  display: grid;
   align-items: center;
   background: ${white};
   border: 4px solid rgba(0, 0, 0, 0.1);
@@ -22,7 +22,7 @@ export const BtnText = styled.div`
   font-weight: 600;
   font-size: 24px;
   line-height: 30px;
-  display: flex;
+  display: grid;
   align-items: center;
   text-align: center;
   justify-content: center;

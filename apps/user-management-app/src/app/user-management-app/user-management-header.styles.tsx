@@ -14,7 +14,7 @@ export const headerText = css`
   font-weight: 300;
   font-size: 48px;
   line-height: 60px;
-  display: flex;
+  display: grid;
   align-items: center;
 
   color: ${black};
