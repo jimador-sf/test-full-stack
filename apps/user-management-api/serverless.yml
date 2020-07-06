@@ -3,7 +3,7 @@ service: user-management-api
 frameworkVersion: ">=1.1.0 <2.0.0"
 
 plugins:
-#  - serverless-dynamodb-local
+  - serverless-dynamodb-local
   - serverless-offline
 
 custom:
@@ -12,8 +12,15 @@ custom:
       port: 8000
       inMemory: true
       migrate: true
+      seed: true
     stages:
       - dev
+      - test
+    seed:
+      dev:
+        sources:
+          - table: User
+            sources: [seed/Users.json]
 
 package:
   individually: true
