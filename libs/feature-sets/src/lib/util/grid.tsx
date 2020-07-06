@@ -48,6 +48,7 @@ export interface GridProps {
   alignContent: string;
   columns: number | string;
 }
+
 export const Grid = styled.div<any>`
   display: grid;
   height: ${({ height = "auto" }) => height};

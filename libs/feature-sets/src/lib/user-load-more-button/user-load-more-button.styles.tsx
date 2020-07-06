@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { white } from '../styles/global';
+import { white } from '@test-full-stack/feature-sets';
 
-export const StyledUserButton = styled.button`
+export const StyledUserLoadMoreButton = styled.button`
   width: 280px;
   height: 90px;
   display: flex;
@@ -13,6 +13,7 @@ export const StyledUserButton = styled.button`
 `;
 
 export const BtnText = styled.div`
+  position: absolute;
   width: 252px;
   height: 68px;
 

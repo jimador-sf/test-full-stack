@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { UserList } from './user-list';
+import UserManagementApp from './user-management-app';
 
-describe(' UserList', () => {
+describe(' UserManagementApp', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<UserList />);
+    const { baseElement } = render(<UserManagementApp />);
     expect(baseElement).toBeTruthy();
   });
 });

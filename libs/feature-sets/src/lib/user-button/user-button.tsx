@@ -4,7 +4,7 @@ import { StyledUserButton, BtnText } from './user-button.styles';
 /* eslint-disable-next-line */
 export interface UserButtonProps {
   buttonText: string;
-  action: () => void
+  action: any
 }
 
 export const UserButton = ({ action, buttonText }: UserButtonProps) => {

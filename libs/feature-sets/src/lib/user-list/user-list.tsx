@@ -1,36 +1,37 @@
 import React from 'react';
-import { useGetUsers } from '../hooks/useGetUsers';
 import UserCard from '../user-card/user-card';
 import { Grid, Cell } from '../util/grid';
-import { StyledUserList } from './user-list.styles';
+import { StyledUserList, UserListContainer, PlaceHolder, UserListWrapper } from './user-list.styles';
+import { User } from '@test-full-stack/data-access';
+
 
 /* eslint-disable-next-line */
 export interface UserListProps {
+  users: User[]
 }
 
-export const UserList: React.FC<UserListProps> = (_props: UserListProps) => {
-
-  const data = useGetUsers();
+export const UserList: React.FC<UserListProps> = ({ users }: UserListProps) => {
 
   return (
     <>
-      <StyledUserList>
-        <Grid columns={'2rem 1fr 2rem'}>
-          <Cell>&nbsp;</Cell>
-          <Cell>
-            <Grid justifyContent={'space-around'} alignContent={'space-around'} columns={3} rows={2}>
-              {
-                data.map(user => (
-                  <UserCard key={user.id} name={user.name} description={user.description}/>
-                ))
-              }
-            </Grid>
-          </Cell>
-          <Cell>&nbsp;</Cell>
-        </Grid>
-      </StyledUserList>
+      <UserListWrapper columns={'7% 1fr 5%'}>
+        <PlaceHolder/>
+        <UserListContainer>
+          <StyledUserList justifyContent={'space-around'}
+                          alignContent={'space-around'}
+                          columns={3}
+                          rows={2}>
+            {
+              users.map(user => (
+                <UserCard key={user.id}
+                          name={user.name}
+                          description={user.description}/>
+              ))
+            }
+          </StyledUserList>
+        </UserListContainer>
+        <PlaceHolder/>
+      </UserListWrapper>
     </>
   );
 };
-
-export default UserList;
