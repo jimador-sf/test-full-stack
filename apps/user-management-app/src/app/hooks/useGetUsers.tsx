@@ -1,8 +1,8 @@
 import * as f from 'factory.ts';
 import * as faker from 'faker';
-import { User } from '@test-full-stack/data-access';
+import { User, useFindAllQuery } from '@test-full-stack/data-access';
 import { usePagination } from './usePagination';
-import { Dispatch, SetStateAction, useCallback } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState, useEffect } from 'react';
 
 const nameGen: () => f.Sync.Generator<string> = () => f.each(() => faker.address.streetName());
 const addressGen: () => f.Sync.Generator<string> = () => f.each(() => faker.address.streetName());
@@ -19,17 +19,27 @@ export const useGetUsers = (): [User[], Dispatch<SetStateAction<number>>] => {
     nextPage(1);
   }, [current, nextPage]);
 
-  const memo: User[] = f.Sync.makeFactory<User>({
-    __typename: 'User',
-    address: addressGen(),
-    createdAt: dateGen(),
-    description: descriptionGen(),
-    dob: dateGen(),
-    id: nameGen(),
-    name: nameGen(),
-    updatedAt: new Date()
-  }).buildList(6);
+  const { data, loading, error } = useFindAllQuery({
+    variables: {
+      pageInfo: {
+        limit: 6,
+        cursor: `${current + 1}`
+      }
+    }
+  })
+
+  if (loading) {
+    return [[], getNextPage];
+  }
+
+  if (data) {
+    const result = data.findAll;
+    return [result.users ?? [], getNextPage]
+  }
+
+  if (error) {
+    throw new Error(`Error: ${error.message}`)
+  }
 
   console.log(`current page is: ${current}`);
-  return [memo, getNextPage];
 };

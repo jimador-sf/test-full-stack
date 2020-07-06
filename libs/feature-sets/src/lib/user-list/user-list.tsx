@@ -1,8 +1,8 @@
 import React from 'react';
 import UserCard from '../user-card/user-card';
-import { Grid, Cell } from '../util/grid';
 import { StyledUserList, UserListContainer, PlaceHolder, UserListWrapper } from './user-list.styles';
 import { User } from '@test-full-stack/data-access';
+import { v1 } from 'uuid';
 
 
 /* eslint-disable-next-line */
@@ -23,7 +23,7 @@ export const UserList: React.FC<UserListProps> = ({ users }: UserListProps) => {
                           rows={2}>
             {
               users.map(user => (
-                <UserCard key={user.id}
+                <UserCard key={v1()}
                           name={user.name}
                           description={user.description}/>
               ))

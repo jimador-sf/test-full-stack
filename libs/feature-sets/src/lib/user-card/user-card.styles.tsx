@@ -6,8 +6,8 @@ const shadow = {
 }
 
 export const StyledUserCard = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
+  display: 'grid',
+  position: 'relative',
   backgroundColor: `${white}`,
   borderRadius: '8px',
   width: '400px',

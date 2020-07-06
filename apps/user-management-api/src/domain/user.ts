@@ -22,7 +22,7 @@ export interface IUserInput {
 }
 
 export interface IUserCriteria {
-  name: string
+  name?: string
 }
 
 export interface IPageInfo {

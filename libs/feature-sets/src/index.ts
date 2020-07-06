@@ -1,3 +1,4 @@
+export * from './lib/user-edit-button/user-edit-button';
 export * from './lib/user-button/user-button';
 export * from './lib/user-card/user-card';
 export * from './lib/user-edit-modal/user-edit-modal';

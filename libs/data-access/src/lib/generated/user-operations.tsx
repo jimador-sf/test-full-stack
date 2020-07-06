@@ -46,7 +46,7 @@ export type Query = {
 };
 
 export type QueryFindAllArgs = {
-  criteria: UserCriteria;
+  criteria?: Maybe<UserCriteria>;
   pageInfo: PageInfo;
 };
 
@@ -60,7 +60,6 @@ export type User = {
   createdAt: Scalars['IsoDateScalar'];
   description: Scalars['String'];
   dob: Scalars['IsoDateScalar'];
-  id: Scalars['ID'];
   name: Scalars['String'];
   updatedAt: Scalars['IsoDateScalar'];
 };
@@ -115,8 +114,8 @@ export type DeleteUserMutation = { __typename?: 'Mutation' } & Pick<
 >;
 
 export type FindAllQueryVariables = Exact<{
-  criteria: UserCriteria;
   pageInfo: PageInfo;
+  criteria?: Maybe<UserCriteria>;
 }>;
 
 export type FindAllQuery = { __typename?: 'Query' } & {
@@ -299,8 +298,8 @@ export type DeleteUserMutationOptions = ApolloReactCommon.BaseMutationOptions<
   DeleteUserMutationVariables
 >;
 export const FindAllDocument = gql`
-  query findAll($criteria: UserCriteria!, $pageInfo: PageInfo!) {
-    findAll(criteria: $criteria, pageInfo: $pageInfo) {
+  query findAll($pageInfo: PageInfo!, $criteria: UserCriteria) {
+    findAll(pageInfo: $pageInfo, criteria: $criteria) {
       users {
         name
         address
@@ -326,8 +325,8 @@ export const FindAllDocument = gql`
  * @example
  * const { data, loading, error } = useFindAllQuery({
  *   variables: {
- *      criteria: // value for 'criteria'
  *      pageInfo: // value for 'pageInfo'
+ *      criteria: // value for 'criteria'
  *   },
  * });
  */

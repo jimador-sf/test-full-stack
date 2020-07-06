@@ -71,15 +71,16 @@ class PageInfo implements IPageInfo {
 /**
  * type-graphql {@link Resolver} for {@link User} data
  */
+// TODO Auth
 @Resolver(User)
 export class UserResolver {
   constructor() {
   }
 
   @Query(_ => UserPage)
-  async findAll(@Arg('criteria') criteria: UserCriteria,
-                @Arg('pageInfo') pageInfo: PageInfo): Promise<UserPage> {
-    const result = await userRepository.findAll(criteria, pageInfo);
+  async findAll(@Arg('pageInfo') pageInfo: PageInfo,
+                @Arg('criteria', {nullable: true}) criteria?: UserCriteria): Promise<UserPage> {
+    const result = await userRepository.findAll(pageInfo, criteria);
     return result as UserPage;
   }
 

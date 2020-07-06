@@ -24,8 +24,8 @@ mutation deleteUser($id: String!) {
   deleteUser(id: $id)
 }
 
-query findAll($criteria: UserCriteria!, $pageInfo: PageInfo!) {
-  findAll(criteria: $criteria, pageInfo: $pageInfo) {
+query findAll($pageInfo: PageInfo!, $criteria: UserCriteria) {
+  findAll(pageInfo: $pageInfo, criteria: $criteria) {
     users {
       name
       address

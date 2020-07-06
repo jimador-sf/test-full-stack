@@ -5,24 +5,21 @@ import * as path from 'path';
 import { makeFactory } from 'factory.ts';
 
 import * as faker from 'faker'
-import { dateGen, descriptionGen, idGen } from './user.fakes';
+import { dateGen, descriptionGen, idGen, addressGen, nameGen } from './user.fakes';
 
 const userSeedFileName = 'Users.json';
 
-const userSeedPath = path.join(__dirname, '..', 'migration', 'seed', userSeedFileName);
+const userSeedPath = path.join(__dirname, '..', 'seed', userSeedFileName);
 
 const createUser = () => {
-  const {address, name: name1} = faker.helpers.userCard();
-  const fullAddress = `${address.street}, ${address.city}, ${address.zipcode}`
-
   return {
     id: idGen(),
-    address: fullAddress,
+    address: addressGen(),
     description: descriptionGen(),
-    name: name1,
+    name: nameGen(),
     dob: dateGen(),
     createdAt: dateGen(),
-    updatedAt: new Date()
+    updatedAt: dateGen(10)
   }
 }
 

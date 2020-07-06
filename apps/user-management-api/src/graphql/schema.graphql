@@ -18,7 +18,7 @@ input PageInfo {
 }
 
 type Query {
-  findAll(criteria: UserCriteria!, pageInfo: PageInfo!): UserPage!
+  findAll(criteria: UserCriteria, pageInfo: PageInfo!): UserPage!
   findOne(id: String!): User!
 }
 
