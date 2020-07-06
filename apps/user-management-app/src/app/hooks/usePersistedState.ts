@@ -6,15 +6,15 @@ import { createBrowserHistory as createHistory } from 'history';
  */
 export function usePersistedState<T>(
   key: string,
-  defaultValue: T,
+  defaultValue: T
 ): [T, Dispatch<SetStateAction<T>>] {
 
   const defaultValueJson = useMemo(() => JSON.stringify(defaultValue), [
-    defaultValue,
+    defaultValue
   ]);
 
   const [state, setState] = useState<T>(useCallback(() =>
-    readFromStorageOrDefault(key, defaultValue), [key, defaultValue]),
+    readFromStorageOrDefault(key, defaultValue), [key, defaultValue])
   );
 
   useEffect(() => {

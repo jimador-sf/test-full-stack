@@ -27,8 +27,11 @@ mutation deleteUser($id: String!) {
 query findAll($pageInfo: PageInfo!, $criteria: UserCriteria) {
   findAll(pageInfo: $pageInfo, criteria: $criteria) {
     users {
+      id
       name
       address
+      lat
+      lng
       dob
       description
       createdAt

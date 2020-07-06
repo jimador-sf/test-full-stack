@@ -1,13 +1,6 @@
-import * as f from 'factory.ts';
-import * as faker from 'faker';
 import { User, useFindAllQuery } from '@test-full-stack/data-access';
 import { usePagination } from './usePagination';
-import { Dispatch, SetStateAction, useCallback, useState, useEffect } from 'react';
-
-const nameGen: () => f.Sync.Generator<string> = () => f.each(() => faker.address.streetName());
-const addressGen: () => f.Sync.Generator<string> = () => f.each(() => faker.address.streetName());
-const descriptionGen: () => f.Sync.Generator<string> = () => f.each(() => faker.lorem.words(5));
-const dateGen: () => f.Sync.Generator<Date> = () => f.each(() => faker.date.recent(1000));
+import { Dispatch, SetStateAction, useCallback } from 'react';
 
 /**
  * Hook to get the initial use list and a function to get the next list of users.
@@ -26,7 +19,7 @@ export const useGetUsers = (): [User[], Dispatch<SetStateAction<number>>] => {
         cursor: `${current + 1}`
       }
     }
-  })
+  });
 
   if (loading) {
     return [[], getNextPage];
@@ -34,11 +27,11 @@ export const useGetUsers = (): [User[], Dispatch<SetStateAction<number>>] => {
 
   if (data) {
     const result = data.findAll;
-    return [result.users ?? [], getNextPage]
+    return [result.users ?? [], getNextPage];
   }
 
   if (error) {
-    throw new Error(`Error: ${error.message}`)
+    throw new Error(`Error: ${error.message}`);
   }
 
   console.log(`current page is: ${current}`);

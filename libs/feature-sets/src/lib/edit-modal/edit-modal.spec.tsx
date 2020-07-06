@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import UserManagementApp from './user-management-app';
+import EditModal from './edit-modal';
 
-describe(' UserManagementApp', () => {
+describe(' EditModal', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<UserManagementApp/>);
+    const { baseElement } = render(<EditModal />);
     expect(baseElement).toBeTruthy();
   });
 });

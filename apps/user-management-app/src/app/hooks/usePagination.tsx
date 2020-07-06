@@ -7,12 +7,12 @@ import { usePersistedState } from './usePersistedState';
  * @return getNextPage A function to get the next page number with an offset.
  */
 export function usePagination(): [number, Dispatch<SetStateAction<number>>] {
-  const [currentPage, setCurrentPage] = usePersistedState('page',0)
+  const [currentPage, setCurrentPage] = usePersistedState('page', 0);
 
   const getNextPage =
     useCallback((skip: number) => {
-    setCurrentPage(currentPage + skip)
-  }, [currentPage, setCurrentPage])
+      setCurrentPage(currentPage + skip);
+    }, [currentPage, setCurrentPage]);
 
-  return [currentPage, getNextPage]
+  return [currentPage, getNextPage];
 }

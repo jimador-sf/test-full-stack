@@ -28,9 +28,6 @@
     }
   },
   "projects": {
-    "geocoding-api": {
-      "tags": []
-    },
     "user-management-api": {
       "tags": []
     },

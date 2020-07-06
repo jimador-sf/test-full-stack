@@ -3,24 +3,26 @@ import * as jsonfile from 'jsonfile';
 import * as path from 'path';
 
 import { makeFactory } from 'factory.ts';
-
-import * as faker from 'faker'
-import { dateGen, descriptionGen, idGen, addressGen, nameGen } from './user.fakes';
+import { dateGen, descriptionGen, idGen, addressGen, nameGen, latLngGen } from './user.fakes';
 
 const userSeedFileName = 'Users.json';
 
 const userSeedPath = path.join(__dirname, '..', 'seed', userSeedFileName);
 
 const createUser = () => {
-  return {
+  const { lat, lng } = latLngGen().build(1)
+  const user = {
     id: idGen(),
     address: addressGen(),
     description: descriptionGen(),
     name: nameGen(),
     dob: dateGen(),
     createdAt: dateGen(),
-    updatedAt: dateGen(10)
-  }
+    updatedAt: dateGen(10),
+    lat,
+    lng
+  };
+  return user
 }
 
 const genUsers = (count = 50) => {
@@ -29,6 +31,7 @@ const genUsers = (count = 50) => {
 
 describe('user data generator', () => {
   it('should generate data', () => {
-    jsonfile.writeFileSync(userSeedPath, genUsers());
+    const data = genUsers();
+    jsonfile.writeFileSync(userSeedPath, data);
   });
 });

@@ -26,7 +26,9 @@ const InputControl = styled.div(inputControlCss);
 const StyledUserEditModal = styled.div`
   width: 1328px;
   height: 725px;
-  padding: 65px;
+  display: grid;
+  margin-left: 42px;
+  place-items: center;
 `;
 
 const HeaderText = styled.div(headerText);

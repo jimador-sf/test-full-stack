@@ -19,6 +19,8 @@ export interface IUserInput {
   dob: Date;
   address: string;
   description: string;
+  lat: string;
+  lng: string;
 }
 
 export interface IUserCriteria {

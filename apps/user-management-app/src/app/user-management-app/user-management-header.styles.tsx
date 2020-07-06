@@ -20,6 +20,6 @@ export const headerText = css`
   color: ${black};
 `;
 
-export const StyledHeaderContainer = (props) => <Grid columns={1} {...props} />
+export const StyledHeaderContainer = (props) => <Grid columns={1} {...props} />;
 
-export const StyledHeaderText = (props) => <Cell css={headerText} center middle {...props} />
+export const StyledHeaderText = (props) => <Cell css={headerText} center middle {...props} />;

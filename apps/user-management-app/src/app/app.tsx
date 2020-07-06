@@ -22,7 +22,7 @@ const StyledApp = styled.div`
 export const App = () => {
   return (
     <ApolloProvider client={client}>
-      <UserManagementApp />
+      <UserManagementApp/>
     </ApolloProvider>
   );
 };

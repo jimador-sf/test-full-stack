@@ -14,7 +14,7 @@ export const UserCard = ({ name, description }: UserCardProps) => {
     <>
       <Cell>
         <StyledUserCard>
-          <UserEditButton />
+          <UserEditButton action={() => null}/>
           <UserAvatar src={'../user-avatar/hipster.png'}/>
           <UserName>
             <Truncate>

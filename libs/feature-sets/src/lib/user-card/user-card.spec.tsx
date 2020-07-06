@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import * as faker from 'faker'
+import * as faker from 'faker';
 
 import UserCard, { UserCardProps } from './user-card';
 

@@ -1,10 +1,8 @@
-import "reflect-metadata";
-import * as fs from "fs";
-import * as path from "path";
+import 'reflect-metadata';
+import * as fs from 'fs';
+import * as path from 'path';
 
-import {
-  emitSchemaDefinitionFile, buildSchemaSync
-} from 'type-graphql';
+import { emitSchemaDefinitionFile, buildSchemaSync } from 'type-graphql';
 import { UserResolver } from '../src/resolver/UserResolver';
 import { ISODateScalar } from '../src/domain';
 

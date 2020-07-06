@@ -60,6 +60,9 @@ export type User = {
   createdAt: Scalars['IsoDateScalar'];
   description: Scalars['String'];
   dob: Scalars['IsoDateScalar'];
+  id: Scalars['ID'];
+  lat: Scalars['String'];
+  lng: Scalars['String'];
   name: Scalars['String'];
   updatedAt: Scalars['IsoDateScalar'];
 };
@@ -72,6 +75,8 @@ export type UserInput = {
   address: Scalars['String'];
   description: Scalars['String'];
   dob: Scalars['IsoDateScalar'];
+  lat: Scalars['String'];
+  lng: Scalars['String'];
   name: Scalars['String'];
 };
 
@@ -123,7 +128,15 @@ export type FindAllQuery = { __typename?: 'Query' } & {
       users: Array<
         { __typename?: 'User' } & Pick<
           User,
-          'name' | 'address' | 'dob' | 'description' | 'createdAt' | 'updatedAt'
+          | 'id'
+          | 'name'
+          | 'address'
+          | 'lat'
+          | 'lng'
+          | 'dob'
+          | 'description'
+          | 'createdAt'
+          | 'updatedAt'
         >
       >;
     };
@@ -301,8 +314,11 @@ export const FindAllDocument = gql`
   query findAll($pageInfo: PageInfo!, $criteria: UserCriteria) {
     findAll(pageInfo: $pageInfo, criteria: $criteria) {
       users {
+        id
         name
         address
+        lat
+        lng
         dob
         description
         createdAt

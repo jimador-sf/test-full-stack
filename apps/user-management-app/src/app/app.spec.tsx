@@ -6,7 +6,7 @@ import App from './app';
 describe('App', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
-        <App />
+      <App/>
     );
 
     expect(baseElement).toBeTruthy();
@@ -14,7 +14,7 @@ describe('App', () => {
 
   it('should have a greeting as the title', () => {
     const { getByText } = render(
-        <App />
+      <App/>
     );
 
     expect(getByText('Welcome to user-management-app!')).toBeTruthy();

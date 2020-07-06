@@ -1,7 +1,7 @@
 import * as TypeGraphQL from 'type-graphql';
 import { Resolver, Query, Arg, Mutation, ObjectType, Field, InputType } from 'type-graphql';
 import { userRepository } from '../repository/UserRepository';
-import { IUser, Scalars, IUserInput, IUserCriteria, IPageInfo, IUserPage } from '../domain';
+import { IUser, IUserInput, IUserCriteria, IPageInfo, IUserPage } from '../domain';
 
 @ObjectType()
 class UserPage implements IUserPage {
@@ -29,6 +29,12 @@ class User implements IUser {
   address: string;
 
   @Field((_type) => String)
+  lat: string;
+
+  @Field((_type) => String)
+  lng: string;
+
+  @Field((_type) => String)
   description: string;
 
   @Field((_type) => Date)
@@ -52,6 +58,12 @@ class UserInput implements IUserInput {
 
   @Field((_type) => String)
   description: string;
+
+  @Field((_type) => String)
+  lat: string;
+
+  @Field((_type) => String)
+  lng: string;
 }
 
 @InputType()
