@@ -1,7 +1,7 @@
 import dynamoDb from '../configuration/DatabaseConfiguration';
 import { v1 } from 'uuid';
-import { DocumentClient } from 'aws-sdk/clients/dynamodb';
-import { IUserInput, IUser } from '../domain';
+import { DocumentClient, QueryInput } from 'aws-sdk/clients/dynamodb';
+import { IUserInput, IUser, IUserCriteria, IPageInfo, IUserPage } from '../domain';
 
 export const UserTableName = 'User';
 export const UserTable = { TableName: UserTableName };
@@ -36,11 +36,26 @@ const saveOrUpdate = (userInput: IUserInput, userId?: string):
   };
 };
 
+const query = ({name}: IUserCriteria, pageInfo: IPageInfo): QueryInput => {
+  return {
+    ...UserTable,
+    KeyConditionExpression: "#nm = :uname",
+    ExpressionAttributeNames:{
+      "#nm": "name"
+    },
+    ExpressionAttributeValues: {
+      ":uname": { S: name }
+    },
+    Limit: pageInfo.limit,
+    ExclusiveStartKey: { "id": { S: pageInfo.cursor } }
+  }
+};
+
 /**
  * Repository interface for {@link User} CRUD methods
  */
 export interface UserRepository {
-  findAll(): Promise<IUser[]>
+  findAll(criteria: IUserCriteria, pageInfo: IPageInfo): Promise<IUserPage>
 
   findOne(userId: string): Promise<IUser | undefined>
 
@@ -55,9 +70,12 @@ export interface UserRepository {
 export const userRepository: UserRepository = new (class implements UserRepository {
 
   // TODO - Tech Debt - remove `any`
-  async findAll(): Promise<IUser[]> {
-    const result = await dynamoDb.scan(UserTable).promise();
-    return result.Items as any;
+  async findAll(criteria: IUserCriteria, pageInfo: IPageInfo): Promise<IUserPage> {
+    const result = await dynamoDb.query(query(criteria, pageInfo)).promise();
+    return {
+      users: result.Items as IUser[],
+      cursor: result.LastEvaluatedKey['id']
+    };
   }
 
   // TODO - Tech Debt - remove `any`

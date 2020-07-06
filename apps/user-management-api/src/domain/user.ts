@@ -20,3 +20,17 @@ export interface IUserInput {
   address: string;
   description: string;
 }
+
+export interface IUserCriteria {
+  name: string
+}
+
+export interface IPageInfo {
+  limit: number;
+  cursor?: string;
+}
+
+export interface IUserPage {
+  users: IUser[];
+  cursor?: string
+}

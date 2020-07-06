@@ -24,14 +24,17 @@ mutation deleteUser($id: String!) {
   deleteUser(id: $id)
 }
 
-query findAll {
-  findAll {
-    name
-    address
-    dob
-    description
-    createdAt
-    updatedAt
+query findAll($criteria: UserCriteria!, $pageInfo: PageInfo!) {
+  findAll(criteria: $criteria, pageInfo: $pageInfo) {
+    users {
+      name
+      address
+      dob
+      description
+      createdAt
+      updatedAt
+    }
+    cursor
   }
 }
 

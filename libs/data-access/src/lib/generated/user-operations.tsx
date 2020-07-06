@@ -17,16 +17,11 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   addUser: User;
-  updateUser: User;
   deleteUser: Scalars['Boolean'];
+  updateUser: User;
 };
 
 export type MutationAddUserArgs = {
-  user: UserInput;
-};
-
-export type MutationUpdateUserArgs = {
-  id: Scalars['String'];
   user: UserInput;
 };
 
@@ -34,10 +29,25 @@ export type MutationDeleteUserArgs = {
   id: Scalars['String'];
 };
 
+export type MutationUpdateUserArgs = {
+  id: Scalars['String'];
+  user: UserInput;
+};
+
+export type PageInfo = {
+  cursor?: Maybe<Scalars['String']>;
+  limit: Scalars['Float'];
+};
+
 export type Query = {
   __typename?: 'Query';
-  findAll: Array<User>;
+  findAll: UserPage;
   findOne: User;
+};
+
+export type QueryFindAllArgs = {
+  criteria: UserCriteria;
+  pageInfo: PageInfo;
 };
 
 export type QueryFindOneArgs = {
@@ -46,20 +56,30 @@ export type QueryFindOneArgs = {
 
 export type User = {
   __typename?: 'User';
+  address: Scalars['String'];
+  createdAt: Scalars['IsoDateScalar'];
+  description: Scalars['String'];
+  dob: Scalars['IsoDateScalar'];
   id: Scalars['ID'];
   name: Scalars['String'];
-  dob: Scalars['IsoDateScalar'];
-  address: Scalars['String'];
-  description: Scalars['String'];
-  createdAt: Scalars['IsoDateScalar'];
   updatedAt: Scalars['IsoDateScalar'];
 };
 
-export type UserInput = {
+export type UserCriteria = {
   name: Scalars['String'];
-  dob: Scalars['IsoDateScalar'];
+};
+
+export type UserInput = {
   address: Scalars['String'];
   description: Scalars['String'];
+  dob: Scalars['IsoDateScalar'];
+  name: Scalars['String'];
+};
+
+export type UserPage = {
+  __typename?: 'UserPage';
+  cursor: Scalars['String'];
+  users: Array<User>;
 };
 
 export type AddUserMutationVariables = Exact<{
@@ -94,15 +114,20 @@ export type DeleteUserMutation = { __typename?: 'Mutation' } & Pick<
   'deleteUser'
 >;
 
-export type FindAllQueryVariables = Exact<{ [key: string]: never }>;
+export type FindAllQueryVariables = Exact<{
+  criteria: UserCriteria;
+  pageInfo: PageInfo;
+}>;
 
 export type FindAllQuery = { __typename?: 'Query' } & {
-  findAll: Array<
-    { __typename?: 'User' } & Pick<
-      User,
-      'name' | 'address' | 'dob' | 'description' | 'createdAt' | 'updatedAt'
-    >
-  >;
+  findAll: { __typename?: 'UserPage' } & Pick<UserPage, 'cursor'> & {
+      users: Array<
+        { __typename?: 'User' } & Pick<
+          User,
+          'name' | 'address' | 'dob' | 'description' | 'createdAt' | 'updatedAt'
+        >
+      >;
+    };
 };
 
 export type FindOneQueryVariables = Exact<{
@@ -274,14 +299,17 @@ export type DeleteUserMutationOptions = ApolloReactCommon.BaseMutationOptions<
   DeleteUserMutationVariables
 >;
 export const FindAllDocument = gql`
-  query findAll {
-    findAll {
-      name
-      address
-      dob
-      description
-      createdAt
-      updatedAt
+  query findAll($criteria: UserCriteria!, $pageInfo: PageInfo!) {
+    findAll(criteria: $criteria, pageInfo: $pageInfo) {
+      users {
+        name
+        address
+        dob
+        description
+        createdAt
+        updatedAt
+      }
+      cursor
     }
   }
 `;
@@ -298,6 +326,8 @@ export const FindAllDocument = gql`
  * @example
  * const { data, loading, error } = useFindAllQuery({
  *   variables: {
+ *      criteria: // value for 'criteria'
+ *      pageInfo: // value for 'pageInfo'
  *   },
  * });
  */

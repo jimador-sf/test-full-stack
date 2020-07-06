@@ -3,10 +3,17 @@ import * as fs from "fs";
 import * as path from "path";
 
 import {
-  emitSchemaDefinitionFile,
-} from "type-graphql";
-import { createSchema } from '../src/handler';
+  emitSchemaDefinitionFile, buildSchemaSync
+} from 'type-graphql';
+import { UserResolver } from '../src/resolver/UserResolver';
+import { ISODateScalar } from '../src/domain';
 
+const createSchema = () => buildSchemaSync({
+  resolvers: [UserResolver],
+  // emitSchemaFile: path.resolve('/tmp', 'schema.graphql'),
+  validate: false,
+  scalarsMap: [{ type: Date, scalar: ISODateScalar }]
+})
 
 const TEST_DIR = __dirname
 

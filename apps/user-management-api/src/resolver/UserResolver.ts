@@ -1,50 +1,71 @@
 import * as TypeGraphQL from 'type-graphql';
 import { Resolver, Query, Arg, Mutation, ObjectType, Field, InputType } from 'type-graphql';
 import { userRepository } from '../repository/UserRepository';
-import { IUser, Scalars, IUserInput } from '../domain';
+import { IUser, Scalars, IUserInput, IUserCriteria, IPageInfo, IUserPage } from '../domain';
 
+@ObjectType()
+class UserPage implements IUserPage {
+  @Field((_type) => [User])
+  users: User[];
+
+  @Field((_type) => String)
+  cursor: string;
+}
 
 /** User domain object */
 @ObjectType()
 class User implements IUser {
-  __typename?: 'User';
 
   @Field((_type) => TypeGraphQL.ID)
-  id: Scalars['ID'];
+  id: string;
 
   @Field((_type) => String)
-  name: Scalars['String'];
+  name: string;
 
   @Field((_type) => Date)
-  dob: Scalars['ISODateScalar'];
+  dob: Date;
 
   @Field((_type) => String)
-  address: Scalars['String'];
+  address: string;
 
   @Field((_type) => String)
-  description: Scalars['String'];
+  description: string;
 
   @Field((_type) => Date)
-  createdAt: Scalars['ISODateScalar'];
+  createdAt: Date;
 
   @Field((_type) => Date)
-  updatedAt: Scalars['ISODateScalar'];
+  updatedAt: Date;
 }
 
 /** User create input. */
 @InputType()
 class UserInput implements IUserInput {
   @Field((_type) => String)
-  name: Scalars['String'];
+  name: string;
 
   @Field((_type) => Date)
-  dob: Scalars['ISODateScalar'];
+  dob: Date;
 
   @Field((_type) => String)
-  address: Scalars['String'];
+  address: string;
 
   @Field((_type) => String)
-  description: Scalars['String'];
+  description: string;
+}
+
+@InputType()
+class UserCriteria implements IUserCriteria {
+  @Field((_type) => String)
+  name: string;
+}
+
+@InputType()
+class PageInfo implements IPageInfo {
+  @Field((_type) => Number)
+  limit: number;
+  @Field(() => String,{ nullable: true } )
+  cursor?: string;
 }
 
 /**
@@ -55,10 +76,11 @@ export class UserResolver {
   constructor() {
   }
 
-  @Query(_ => [User])
-  async findAll(): Promise<User[]> {
-    const result = await userRepository.findAll();
-    return result;
+  @Query(_ => UserPage)
+  async findAll(@Arg('criteria') criteria: UserCriteria,
+                @Arg('pageInfo') pageInfo: PageInfo): Promise<UserPage> {
+    const result = await userRepository.findAll(criteria, pageInfo);
+    return result as UserPage;
   }
 
   @Query(_ => User)

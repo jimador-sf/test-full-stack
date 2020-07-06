@@ -8,28 +8,42 @@ scalar IsoDateScalar
 
 type Mutation {
   addUser(user: UserInput!): User!
-  updateUser(id: String!, user: UserInput!): User!
   deleteUser(id: String!): Boolean!
+  updateUser(id: String!, user: UserInput!): User!
+}
+
+input PageInfo {
+  cursor: String
+  limit: Float!
 }
 
 type Query {
-  findAll: [User!]!
+  findAll(criteria: UserCriteria!, pageInfo: PageInfo!): UserPage!
   findOne(id: String!): User!
 }
 
 type User {
+  address: String!
+  createdAt: IsoDateScalar!
+  description: String!
+  dob: IsoDateScalar!
   id: ID!
   name: String!
-  dob: IsoDateScalar!
-  address: String!
-  description: String!
-  createdAt: IsoDateScalar!
   updatedAt: IsoDateScalar!
 }
 
-input UserInput {
+input UserCriteria {
   name: String!
-  dob: IsoDateScalar!
+}
+
+input UserInput {
   address: String!
   description: String!
+  dob: IsoDateScalar!
+  name: String!
+}
+
+type UserPage {
+  cursor: String!
+  users: [User!]!
 }
