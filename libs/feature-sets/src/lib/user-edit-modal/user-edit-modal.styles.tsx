@@ -22,7 +22,7 @@ export const inputCss = css`
   line-height: 30px;
   display: grid;
   align-items: center;
-
+  text-indent: 15px;
   color: #000000;
 `;
 

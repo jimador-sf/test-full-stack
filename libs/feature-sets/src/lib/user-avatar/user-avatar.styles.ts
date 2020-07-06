@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { UserAvatarProps } from '@test-full-stack/feature-sets';
+import { UserAvatarProps } from './user-avatar';
 import { white } from '../styles/global';
 
 export const StyledUserAvatar = styled.div<UserAvatarProps>({

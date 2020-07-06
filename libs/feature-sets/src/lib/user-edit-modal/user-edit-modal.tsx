@@ -8,11 +8,15 @@ import { useForm } from 'react-hook-form';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { InteractiveMap, Marker } from 'react-map-gl';
 import UserSearchInput from '../user-search-input/user-search-input';
+import { User } from '@test-full-stack/data-access';
 
-const TOKEN = process.env.MAPBOX_ACCESS_TOKEN;
+const TOTALLY_NOT_A_MAPBOX_TOKEN_STORED_IN_SOURCE_CONTROL = `pk.eyJ1IjoiamR1bm5hbSIsImEiOiJja2M3dDIzMTkwNnZ2MnBwcTVkbGw0NW4wIn0.gWACb0ktQ7RGC8oOXHiuNQ`
 
 /* eslint-disable-next-line */
 export interface UserEditModalProps {
+  user: User;
+  cancelFn: () => void;
+  submitFn?: (user: User) => void;
 }
 
 const Input = styled.input(inputCss);
@@ -24,8 +28,8 @@ const Form = styled.form(formCss);
 const InputControl = styled.div(inputControlCss);
 
 const StyledUserEditModal = styled.div`
-  width: 1328px;
-  height: 725px;
+  width: 90%;
+  height: 90%;
   display: grid;
   margin-left: 42px;
   place-items: center;
@@ -35,15 +39,17 @@ const HeaderText = styled.div(headerText);
 
 const MarkerElement = () => <><Pin/><Pulse/></>
 
-export const UserEditModal = (props: UserEditModalProps) => {
+export const UserEditModal = ({user, submitFn, cancelFn}: UserEditModalProps) => {
+  const {
+    lat = '37.8',
+    lng = '-122.4'
+  } = user
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = data => console.log(data);
-  console.log(errors);
-
 
   const [viewport, setViewport] = useState({
-    latitude: 37.8,
-    longitude: -122.4,
+    latitude: Number(lat),
+    longitude: Number(lng),
     zoom: 14,
     bearing: 0,
     pitch: 0
@@ -51,9 +57,7 @@ export const UserEditModal = (props: UserEditModalProps) => {
 
   const handleViewportChange = useCallback(updated => {
     console.log(`handleViewportChange: ${JSON.stringify(updated)}`);
-    setViewport({
-      ...viewport, ...updated
-    });
+    setViewport({ ...viewport, ...updated });
   }, [viewport]);
 
   const handleGeocoderViewportChange = useCallback(updated => {
@@ -71,7 +75,7 @@ export const UserEditModal = (props: UserEditModalProps) => {
     <StyledUserEditModal>
       <Grid
         gap={'20px'}
-        columns={'582px auto 1fr'}
+        columns={'500px auto 1fr'}
         rows={'171px 337px 217px'}
         areas={[
           'header header  header',
@@ -89,7 +93,7 @@ export const UserEditModal = (props: UserEditModalProps) => {
             width='100%'
             height='100%'
             onViewportChange={handleViewportChange}
-            mapboxApiAccessToken={TOKEN}
+            mapboxApiAccessToken={TOTALLY_NOT_A_MAPBOX_TOKEN_STORED_IN_SOURCE_CONTROL}
           >
             <Marker latitude={viewport.latitude}
                     longitude={viewport.longitude}
@@ -119,6 +123,7 @@ export const UserEditModal = (props: UserEditModalProps) => {
               <Input type="text"
                      name="Name"
                      id={'name'}
+                     defaultValue={user.name}
                      ref={register({ required: true, max: 100, min: 1, maxLength: 100 })}
               />
             </InputControl>
@@ -127,6 +132,7 @@ export const UserEditModal = (props: UserEditModalProps) => {
               <br/>
               <UserSearchInput
                 htmlFor={'location'}
+                defaultValue={user.address}
                 onChange={({ suggestion }) =>
                   handleGeocoderViewportChange(
                     {
@@ -143,15 +149,16 @@ export const UserEditModal = (props: UserEditModalProps) => {
               <Input type="text"
                      name="Description"
                      id={'description'}
+                     defaultValue={user.description}
                      ref={register({ required: true, max: 4000, min: 1, maxLength: 4000 })}/>
             </InputControl>
           </Form>
         </Cell>
         <Cell area={'save'} middle style={{ width: '88%', margin: '0px auto' }}>
-          <UserButton action={() => alert('ouch')} buttonText={'Save'}/>
+          <UserButton action={handleSubmit(data => alert(JSON.stringify({...user, ...data})))} buttonText={'Save'}/>
         </Cell>
         <Cell area={'cancel'} middle style={{ width: '66%', margin: '0px auto' }}>
-          <UserButton action={() => alert('ouch')} buttonText={'Cancel'}/>
+          <UserButton action={cancelFn} buttonText={'Cancel'}/>
         </Cell>
       </Grid>
     </StyledUserEditModal>

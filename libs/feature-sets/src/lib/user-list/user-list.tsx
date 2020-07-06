@@ -2,10 +2,9 @@ import React from 'react';
 import UserCard from '../user-card/user-card';
 import { StyledUserList, UserListContainer, PlaceHolder, UserListWrapper } from './user-list.styles';
 import { User } from '@test-full-stack/data-access';
-import { v1 } from 'uuid';
+import * as faker from 'faker'
 
 
-/* eslint-disable-next-line */
 export interface UserListProps {
   users: User[]
 }
@@ -22,10 +21,11 @@ export const UserList: React.FC<UserListProps> = ({ users }: UserListProps) => {
                           columns={3}
                           rows={2}>
             {
-              users.map(user => (
-                <UserCard key={v1()}
-                          name={user.name}
-                          description={user.description}/>
+              users.map((user, index) => (
+                <UserCard key={index}
+                          user={user}
+                          imageSrc={`https://source.unsplash.com/random/900×700/?face${faker.random.number()}`}
+                />
               ))
             }
           </StyledUserList>
