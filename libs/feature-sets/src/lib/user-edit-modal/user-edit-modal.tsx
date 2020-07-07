@@ -65,7 +65,7 @@ export const UserEditModal = ({ user, cancelFn }: UserEditModalProps) => {
   const handleViewChange = (updated, newAddress = undefined) => {
     console.log(`handleGeocoderViewportChange: ${JSON.stringify(updated)}`);
     const overrides = { transitionDuration: 250 };
-    setViewport({ ...updated, ...overrides });
+    setViewport({...viewport, ...updated, ...overrides });
     if (newAddress) {
       setAddressValue(newAddress);
     }
