@@ -47,6 +47,12 @@ Serverless manages the infrastructure for local and AWS deployments and testing.
 - [ ] Amazon AWS account and `awscli` installed and configured: <https://aws.amazon.com/getting-started/>
 
 #### Running locally
+- Install 
+```
+yarn install
+```
+
+- Start DynamoDB
 ```bash
 sls dynamodb start 
 ```
@@ -54,16 +60,17 @@ This will start a local DynamoDB instance (via serverless) running on port 8000.
 Serverless, the AWS Cloudformation configuration is automatically picked up and proessed. The User table is created with 
 the appropriate permissions, and the User table is [seeded with data](apps/user-management-api/seed). 
 
+- Start user-management-api
 ```bash
 yarn nx serve user-management-api --port=5555
 ```
 This will start a local instance of the user-management-api lambda running on port 5555. 
 By default, the user-management-app ApolloClient is looking for the API service on port 5555.
 
+- Start user-management-app
 ```bash
 yarn nx serve user-management-app
 ```
-Starts the React app
 
 ### Automated AWS Deployment
 Automated AWS deployments are provided via Serverless. Run `yarn nx user-management-api:deploy` after 
@@ -82,7 +89,7 @@ run `yarn nx user-management-api:destroy` to tear down your the user-management-
 
 #### Running Storybook
 
-Run `nx run feature-sets:storybook` to launch [Storybook](https://storybook.js.org/) on port 4400.
+Run `yarn nx run feature-sets:storybook` to launch [Storybook](https://storybook.js.org/) on port 4400.
 
 #### Running unit tests
 
@@ -91,7 +98,7 @@ To rerun tests only in modules that failed `yarn nx run-many --target=test --onl
 
 #### Running end-to-end tests
 
-Run `nx test <APP_NAME-e2e>:2e2` to execute the acceptance tests via [Cypress](https://www.cypress.io/).
+Run `yarn nx test <APP_NAME-e2e>:2e2` to execute the acceptance tests via [Cypress](https://www.cypress.io/).
 
 #### Dependency Graph
 
@@ -102,7 +109,7 @@ Run `nx test <APP_NAME-e2e>:2e2` to execute the acceptance tests via [Cypress](h
 To serve the `production` profile locally, run:
  
 ```bash
-nx serve user-management-api:production --port=5555
+yarn nx serve user-management-api:production --port=5555
 ```
 
 
