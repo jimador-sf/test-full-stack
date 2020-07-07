@@ -21,7 +21,7 @@ TypeScript/NodeJS AWS lambda GraphQL API and React Frontend application for User
 
 A dependency graph for the project can be generated with `yarn nx dep-graph`.
 
-### Tools 
+## Tools 
 - [Nx](https://nx.dev/react)
 - yarn
 - TypeScript
@@ -32,30 +32,21 @@ A dependency graph for the project can be generated with `yarn nx dep-graph`.
 - Cypress
 - Storybook
 
+## GraphQL Schema
+The GQL schema can be found [here](./src/graphql/schema.graphql). The TS API is built with 
+[TypeGraphQL](https://typegraphql.com/) and then the schema is generated from the TypeScript types. 
 
 ## Serverless
 Serverless manages the infrastructure for local and AWS deployments and testing.
 
-### Automated AWS Deployment
-Automated AWS deployments are provided via Serverless. Run `yarn nx user-management-api:deploy` after 
-setting [up AWS credentials](https://www.serverless.com/framework/docs/providers/aws/guide/deploying/) to deploy the user-management-api to AWS lambda, a DynamoDB instance with the 
-User table, and an AWS gateway for communication with the GQL API.
+### Local Development
 
-#### Destroy
-run `yarn nx user-management-api:destroy` to tear down your the user-management-api AWS environment created above.
- 
-## GraphQL Schema
-
-The GQL schema can be found [here](./src/graphql/schema.graphql). The TS API is built with 
-[TypeGraphQL](https://typegraphql.com/) and then the schema is generated from the TypeScript types. 
-
-## Local Development
-### Prerequisites
+#### Prerequisites
 - [ ] Serverless [CLI](https://serverless.com/framework/docs/getting-started/)
 - [ ] Local DynamoDB install https://www.serverless.com/plugins/serverless-dynamodb-local
 - [ ] Amazon AWS account and `awscli` installed and configured: <https://aws.amazon.com/getting-started/>
 
-### Running locally
+#### Running locally
 ```bash
 sls dynamodb start 
 ```
@@ -74,11 +65,16 @@ yarn nx serve user-management-app
 ```
 Starts the React app
 
+### Automated AWS Deployment
+Automated AWS deployments are provided via Serverless. Run `yarn nx user-management-api:deploy` after 
+setting [up AWS credentials](https://www.serverless.com/framework/docs/providers/aws/guide/deploying/) to deploy the user-management-api to AWS lambda, a DynamoDB instance with the 
+User table, and an AWS gateway for communication with the GQL API.
+
+#### Destroy
+run `yarn nx user-management-api:destroy` to tear down your the user-management-api AWS environment created above.
+ 
+
 ## Useful commands
-
-#### Dependency Graph
-
-`yarn nx dep-graph` will display a dependency graph for all of the repo components.
 
 #### Building
 
@@ -97,6 +93,9 @@ To rerun tests only in modules that failed `yarn nx run-many --target=test --onl
 
 Run `nx test <APP_NAME-e2e>:2e2` to execute the acceptance tests via [Cypress](https://www.cypress.io/).
 
+#### Dependency Graph
+
+`yarn nx dep-graph` will display a dependency graph for all of the repo components.
 
 **NOTE: All deployments (locally and in AWS) are configurable with a dev or production flag.**
 
