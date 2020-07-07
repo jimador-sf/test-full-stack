@@ -40,7 +40,13 @@ const saveOrUpdate = (userInput: IUser, userId?: string):
 const criteriaExists = (criteria: IUserCriteria) => criteria && criteria.name
 
 export const nameFilter = (user: IUser, criteria?: IUserCriteria) => {
-  return !criteriaExists(criteria) || criteria.name !== user.name
+  if (!criteriaExists(criteria)) {
+    return true;
+  } else {
+    const match = new RegExp(`^${criteria.name}.*$`, 'i')
+
+    return user.name.match(match)
+  }
 }
 
 

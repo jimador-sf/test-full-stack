@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GlobalStyles, UserList, UserButton } from '@test-full-stack/feature-sets';
 import { useGetUsers } from '../hooks/useGetUsers';
 import { LoadMoreButtonWrapper, StyledUserManagementFooter } from './user-management-footer.styles';
-import { StyledHeaderText } from './user-management-header.styles';
-import { StyledUserManagementApp, Header, Body, Footer } from './user-management-app.styles';
+import { StyledUserManagementApp, Header, Body, Footer, Input, StyledHeaderText } from './user-management-app.styles';
 import { ModalProvider } from 'react-modal-hook/dist';
+import { debounce } from 'lodash';
 
 /* eslint-disable-next-line */
 export interface UserManagementAppProps {
@@ -12,7 +12,9 @@ export interface UserManagementAppProps {
 
 // TODO: Tech Debt - God Component
 export const UserManagementApp = (props: UserManagementAppProps) => {
-  const [users, nextPage] = useGetUsers();
+  const [name, setName] = useState(null);
+  const [users, nextPage] = useGetUsers(name);
+
   return (
     <>
       <ModalProvider>
@@ -20,6 +22,15 @@ export const UserManagementApp = (props: UserManagementAppProps) => {
         <StyledUserManagementApp>
           <Header>
             <StyledHeaderText>User list</StyledHeaderText>
+            <Input type="text"
+                   name="search"
+                   id={'search'}
+                   placeholder={'Search...'}
+                   onChange={(e) => {
+                     e.persist();
+                     debounce(() => setName(e.target.value), 500)();
+                   }}
+            />
           </Header>
           <Body>
             <UserList users={users}/>
