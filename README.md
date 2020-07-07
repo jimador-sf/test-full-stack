@@ -1,111 +1,106 @@
-# Superformula Full Stack Developer Test
+## Full Stack Developer Test
 
-Be sure to read **all** of this document carefully, and follow the guidelines within.
+### About
+TypeScript/NodeJS AWS lambda GraphQL API and React Frontend application for User Management. 
 
-## Backend Context
+## Project structure
 
-Build a GraphQL API that can `create/read/update/delete` user data from a persistence store.
+- `apps/*` contains deployable applications.
+    - [user-management-api](apps/user-management-api) - TS/Node/GQL/Lambda application and environment configuration
+    - [user-management-app](apps/user-management-app) - React application - UI components are provided via `lib/feature-sets`
+    - _*-e2e_ - end-to-end Cypress test suites. Due to time constraints, they are currently just "it renders" tests.
+- `libs/*` shared library code
+    - [data-access](libs/data-access) - primarily generated code. The graphql schema served by the _user-management-api_ is 
+    processed and types and Apollo hooks are generated. This API is consumed by _feature-sets_ and _user-management-app_
+    - [feature-sets](libs/data-access) - sharable UI components for the _user-management-app_
 
-### User Model
+A dependency graph for the project can be generated with `yarn nx dep-graph`.
 
+### Tools 
+- [Nx](https://nx.dev/react)
+- yarn
+- TypeScript
+- Node 
+- Serverless
+- AWS (Lambda/Dynamo/Gateway)
+- Github Actions for SCM and CI&CD
+- Cypress
+- Storybook
+
+
+## Serverless
+Serverless manages the infrastructure for local and AWS deployments and testing.
+
+### Automated AWS Deployment
+Automated AWS deployments are provided via Serverless. Run `yarn nx user-management-api:deploy` after 
+setting [up AWS credentials](https://www.serverless.com/framework/docs/providers/aws/guide/deploying/) to deploy the user-management-api to AWS lambda, a DynamoDB instance with the 
+User table, and an AWS gateway for communication with the GQL API.
+
+#### Destroy
+run `yarn nx user-management-api:destroy` to tear down your the user-management-api AWS environment created above.
+ 
+## GraphQL Schema
+
+The GQL schema can be found [here](./src/graphql/schema.graphql). The TS API is built with 
+[TypeGraphQL](https://typegraphql.com/) and then the schema is generated from the TypeScript types. 
+
+## Local Development
+### Prerequisites
+- [ ] Serverless [CLI](https://serverless.com/framework/docs/getting-started/)
+- [ ] Local DynamoDB install https://www.serverless.com/plugins/serverless-dynamodb-local
+- [ ] Amazon AWS account and `awscli` installed and configured: <https://aws.amazon.com/getting-started/>
+
+### Running locally
+```bash
+sls dynamodb start 
 ```
-{
-  "id": "xxx",                  // user ID (must be unique)
-  "name": "backend test",       // user name
-  "dob": "",                    // date of birth
-  "address": "",                // user address
-  "description": "",            // user description
-  "createdAt": ""               // user created date
-  "updatedAt": ""               // user updated date
-}
+This will start a local DynamoDB instance (via serverless) running on port 8000. When starting DynamoDB via 
+Serverless, the AWS Cloudformation configuration is automatically picked up and proessed. The User table is created with 
+the appropriate permissions, and the User table is [seeded with data](apps/user-management-api/seed). 
+
+```bash
+yarn nx serve user-management-api --port=5555
+```
+This will start a local instance of the user-management-api lambda running on port 5555. 
+By default, the user-management-app ApolloClient is looking for the API service on port 5555.
+
+```bash
+yarn nx serve user-management-app
+```
+Starts the React app
+
+## Useful commands
+
+#### Dependency Graph
+
+`yarn nx dep-graph` will display a dependency graph for all of the repo components.
+
+#### Building
+
+`yarn nx run-many --target=build --all`
+
+#### Running Storybook
+
+Run `nx run feature-sets:storybook` to launch [Storybook](https://storybook.js.org/) on port 4400.
+
+#### Running unit tests
+
+Run `yarn nx run-many --target=test --all` to execute the unit tests via [Jest](https://jestjs.io). 
+To rerun tests only in modules that failed `yarn nx run-many --target=test --onlyFailed`
+
+#### Running end-to-end tests
+
+Run `nx test <APP_NAME-e2e>:2e2` to execute the acceptance tests via [Cypress](https://www.cypress.io/).
+
+
+**NOTE: All deployments (locally and in AWS) are configurable with a dev or production flag.**
+
+To serve the `production` profile locally, run:
+ 
+```bash
+nx serve user-management-api:production --port=5555
 ```
 
-### Functionality
 
-- The API should follow typical GraphQL API design pattern.
-- The data should be saved in the DB.
-- Proper error handling should be used.
-- Paginating and filtering (by name) users list
-
-### Basic Requirements
-
-  - Use AWS AppSync (preferred) or AWS Lambda + API Gateway approach
-  - Use any AWS Database-as-a-Service persistence store. DynamoDB is preferred.
-  - Add a Query to fetch location information based off the user's address (use [NASA](https://api.nasa.gov/api.html) or [Mapbox](https://www.mapbox.com/api-documentation/) APIs); use AWS Lambda
-  - Write concise and clear commit messages.
-  - Write clear **documentation** on how it has been designed and how to run the code.
-
-### Bonus
-  - Use Infrastructure-as-code tooling that can be used to deploy all resources to an AWS account. Examples: CloudFormation / SAM, Terraform, Serverless Framework, etc.
-  - Provide proper unit tests.
-  - Providing an online demo is welcomed, but not required.
-  - Bundle npm modules into your Lambdas
-
-### Advanced Requirements
-
-These may be used for further challenges. You can freely skip these; feel free to try out if you feel up to it.
-  - Describe your strategy for Lambda error handling, retries, and DLQs
-  - Describe your cloud-native logging, monitoring, and alarming strategy across all queries/mutations
-
-## UI context
-
-Use HTML, CSS, and JavaScript (choose one of popular framework) to implement the following mock-up. You are only required to complete the desktop views, unless otherwise instructed. Application should connect to created GraphQL API.
-
-![Superformula-front-end-test-mockup](mockup1.png)
-
-![Superformula-front-end-test-mockup-2](mockup2.png)
-
-> [Source Figma file](https://www.figma.com/file/hd7EgdTxJs2fpTzzSKlNxo/Superformula-full-stack-test)
-
-## Requirements
-
-### Functionality
-
-- The search functionality should perform real time filtering on client side data and API side data
-- List of users should be updated automatically after single user is updated
-- Infinite loading state should be saved in url query
-- Appear/Disappear of modal should be animated (feel free with choose how)
-- Map with user location should update async - when user changes "location" field
-
-### Tech stack
-
-- JS oriented
-- Use **React**, **Angular** or **VUE**.
-- Use unsplash.com to show random avatar images
-- You don't have to write configuration from scratch (you can use eg. CRA for React application)
-- Feel free to use a preprocessor like SASS/SCSS/Less or CSS in JS
-- Provide E2E and unit tests
-- Feel free to choose MAPS service (GoogleMaps, OpenStreetMap etc)
-
-### Bonus
-
-- Write clear **documentation** on how the app was designed and how to run the code.
-- Provide components in [Storybook](https://storybook.js.org) with tests.
-- Write concise and clear commit messages.
-- Provide an online demo of the application.
-- Include subtle animations to focus attention
-- Describe optimization opportunities when you conclude
-- Handle server erros
-- Handle loading states
-
-## What We Care About
-
-Use any libraries that you would normally use if this were a real production App. Please note: we're interested in your code & the way you solve the problem, not how well you can use a particular library or feature.
-
-_We're interested in your method and how you approach the problem just as much as we're interested in the end result._
-
-Here's what you should strive for:
-
-- Good use of current HTML, CSS, JavaScript, Node.js & performance best practices.
-- Solid testing approach.
-- Extensible code.
-
-## Q&A
-
-> Where should I send back the result when I'm done?
-
-Fork this repo and send us a pull request when you think you are done. There is no deadline for this task unless otherwise noted to you directly.
-
-> What if I have a question?
-
-Create a new issue in this repo and we will respond and get back to you quickly.
+---
+##### This library was generated with [Nx](https://nx.dev).

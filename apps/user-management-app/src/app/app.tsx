@@ -1,18 +1,13 @@
 import React from 'react';
-
-import styled from '@emotion/styled';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import UserManagementApp from './user-management-app/user-management-app';
+import { USER_MANAGEMENT_API_URL } from './configuration/app-configuration';
 
-/*
- * Replace the elements below with your own.
- *
- * Note: The corresponding styles are in the ./app.@emotion/styled file.
- */
+
 
 const client = new ApolloClient({
-  uri: 'http://localhost:5555/graphql'
+  uri: USER_MANAGEMENT_API_URL
 });
 
 export const App = () => {
