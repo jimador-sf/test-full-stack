@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { Grid, Cell } from '../../../../../libs/feature-sets/src/lib/util/grid';
 import React from 'react';
 import styled from '@emotion/styled';
 import { white, black } from '@test-full-stack/feature-sets';
+import { Grid, Cell } from './grid';
 
 const headerCss = css`
   display: grid;

@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import React from 'react';
 import { Grid, Cell } from '../util/grid';
 import { whiteSmoke } from '../styles/global';
 

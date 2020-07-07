@@ -1,6 +1,6 @@
 import * as f from 'factory.ts';
 import * as faker from 'faker';
-import { IUser } from '../../../../../apps/user-management-api/src/domain';
+import { User } from '@test-full-stack/data-access';
 
 export const nameGen: () => f.Sync.Generator<string> = () => f.each(() => faker.helpers.userCard().name);
 export const addressGen: () => f.Sync.Generator<string> = () => f.each(() => {
@@ -21,7 +21,7 @@ export const latLngGen: () => f.Sync.Generator<{
 });
 
 
-export const usersGen = (count = 6) => f.Sync.makeFactory<IUser>({
+export const usersGen = (count = 6) => f.Sync.makeFactory<User>({
   id: nameGen(),
   address: addressGen(),
   createdAt: dateGen(),

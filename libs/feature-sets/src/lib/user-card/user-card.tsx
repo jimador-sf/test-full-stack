@@ -39,7 +39,6 @@ export const UserCard = ({ user, imageSrc }: UserCardProps) => {
   );
 
   return (
-    <>
       <Cell>
         <StyledUserCard>
           <UserEditButton action={showModal}/>
@@ -56,7 +55,6 @@ export const UserCard = ({ user, imageSrc }: UserCardProps) => {
           </Description>
         </StyledUserCard>
       </Cell>
-    </>
   );
 };
 

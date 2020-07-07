@@ -16,7 +16,6 @@ export const UserManagementApp = (props: UserManagementAppProps) => {
   const [users, nextPage] = useGetUsers(name);
 
   return (
-    <>
       <ModalProvider>
         <GlobalStyles/>
         <StyledUserManagementApp>
@@ -44,7 +43,6 @@ export const UserManagementApp = (props: UserManagementAppProps) => {
           </Footer>
         </StyledUserManagementApp>
       </ModalProvider>
-    </>
   );
 };
 

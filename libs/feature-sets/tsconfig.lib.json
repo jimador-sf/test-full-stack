@@ -2,7 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
   "exclude": [
     "**/*.spec.ts",
@@ -10,5 +12,10 @@
     "**/*.stories.ts",
     "**/*.stories.js"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

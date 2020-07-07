@@ -1,5 +1,5 @@
-import { usersGen } from '../../../../libs/feature-sets/src/lib/util/user-faker';
 import { nameFilter } from './UserRepository';
+import { usersGen } from '../../test/user.fakes';
 
 describe('UserRepositoryTest', () => {
   it('should filter non-herby', () => {

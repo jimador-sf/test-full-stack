@@ -108,113 +108,6 @@
         }
       }
     },
-    "appsync": {
-      "root": "apps/appsync",
-      "sourceRoot": "apps/appsync/src",
-      "projectType": "application",
-      "prefix": "appsync",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@flowaccount/nx-serverless:build",
-          "options": {
-            "outputPath": "dist/apps/appsync",
-            "package": "apps/appsync",
-            "serverlessConfig": "apps/appsync/serverless.yml",
-            "servicePath": "apps/appsync",
-            "tsConfig": "apps/appsync/tsconfig.app.json",
-            "provider": "aws",
-            "processEnvironmentFile": "env.json"
-          },
-          "configurations": {
-            "dev": {
-              "optimization": false,
-              "sourceMap": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            },
-            "production": {
-              "optimization": true,
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "apps/appsync/environment.ts",
-                  "with": "apps/appsync/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@flowaccount/nx-serverless:offline",
-          "options": {
-            "buildTarget": "appsync:build",
-            "config": "apps/appsync/serverless.yml",
-            "location": "dist/apps/appsync"
-          },
-          "configurations": {
-            "dev": {
-              "buildTarget": "appsync:build:dev"
-            },
-            "production": {
-              "buildTarget": "appsync:build:production"
-            }
-          }
-        },
-        "deploy": {
-          "builder": "@flowaccount/nx-serverless:deploy",
-          "options": {
-            "buildTarget": "appsync:build:production",
-            "config": "apps/appsync/serverless.yml",
-            "location": "dist/apps/appsync",
-            "package": "dist/apps/appsync"
-          }
-        },
-        "destroy": {
-          "builder": "@flowaccount/nx-serverless:destroy",
-          "options": {
-            "buildTarget": "appsync:build:production",
-            "config": "apps/appsync/serverless.yml",
-            "location": "dist/apps/appsync",
-            "package": "dist/apps/appsync"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "apps/appsync/tsconfig.app.json",
-              "apps/appsync/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/appsync/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/appsync/jest.config.js",
-            "tsConfig": "apps/appsync/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "data-access": {
       "root": "libs/data-access",
       "sourceRoot": "libs/data-access/src",
@@ -352,7 +245,6 @@
             "polyfills": "apps/user-management-app/src/polyfills.ts",
             "tsConfig": "apps/user-management-app/tsconfig.app.json",
             "assets": [
-              "apps/user-management-app/src/favicon.ico",
               "apps/user-management-app/src/assets"
             ],
             "styles": [],

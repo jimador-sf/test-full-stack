@@ -2,8 +2,8 @@ import React from 'react';
 import { UserCard, UserCardProps } from './user-card';
 import * as f from 'factory.ts';
 import { User } from '@test-full-stack/data-access';
-import { nameGen, addressGen, dateGen, descriptionGen, latLngGen } from '../../../../../apps/user-management-api/test/user.fakes';
 import { ModalProvider } from 'react-modal-hook/dist';
+import { nameGen, dateGen, addressGen, descriptionGen, latLngGen } from '../util/user-faker';
 
 export default {
   component: UserCard,
@@ -22,13 +22,11 @@ const users = f.Sync.makeFactory<User>({
 }).buildList(6);
 
 export const primary = () => {
-  const props: UserCardProps = { user: users[0] };
+  const props: UserCardProps = { user: users[0], imageSrc: '' };
 
   return (
-    <>
       <ModalProvider>
         <UserCard {...props} />
       </ModalProvider>
-    </>
   );
 };

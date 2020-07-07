@@ -8,10 +8,12 @@ export default {
 };
 
 export const primary = () => {
+  const actFn = () => {
+    console.log('i did a thing')
+  }
   /* eslint-disable-next-line */
   const props: UserButtonProps = {
-    action(): void {
-    },
+    action: actFn,
     buttonText: text('button text', 'some text')
 
   };

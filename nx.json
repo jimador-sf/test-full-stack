@@ -31,9 +31,6 @@
     "user-management-api": {
       "tags": []
     },
-    "appsync": {
-      "tags": []
-    },
     "data-access": {
       "tags": []
     },

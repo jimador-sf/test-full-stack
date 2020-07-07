@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactHooks from '@apollo/react-hooks';
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -93,8 +94,7 @@ export type AddUserMutationVariables = Exact<{
 }>;
 
 export type AddUserMutation = { __typename?: 'Mutation' } & {
-  addUser: { __typename?: 'User' } & Pick<
-    User,
+  addUser: { __typename?: 'User' } & Pick<User,
     | 'id'
     | 'name'
     | 'address'
@@ -103,8 +103,7 @@ export type AddUserMutation = { __typename?: 'Mutation' } & {
     | 'lat'
     | 'lng'
     | 'createdAt'
-    | 'updatedAt'
-  >;
+    | 'updatedAt'>;
 };
 
 export type UpdateUserMutationVariables = Exact<{
@@ -112,8 +111,7 @@ export type UpdateUserMutationVariables = Exact<{
 }>;
 
 export type UpdateUserMutation = { __typename?: 'Mutation' } & {
-  updateUser: { __typename?: 'User' } & Pick<
-    User,
+  updateUser: { __typename?: 'User' } & Pick<User,
     | 'id'
     | 'name'
     | 'address'
@@ -122,18 +120,15 @@ export type UpdateUserMutation = { __typename?: 'Mutation' } & {
     | 'lat'
     | 'lng'
     | 'createdAt'
-    | 'updatedAt'
-  >;
+    | 'updatedAt'>;
 };
 
 export type DeleteUserMutationVariables = Exact<{
   id: Scalars['String'];
 }>;
 
-export type DeleteUserMutation = { __typename?: 'Mutation' } & Pick<
-  Mutation,
-  'deleteUser'
->;
+export type DeleteUserMutation = { __typename?: 'Mutation' } & Pick<Mutation,
+  'deleteUser'>;
 
 export type FindAllQueryVariables = Exact<{
   pageInfo: PageInfo;
@@ -142,21 +137,17 @@ export type FindAllQueryVariables = Exact<{
 
 export type FindAllQuery = { __typename?: 'Query' } & {
   findAll: { __typename?: 'UserPage' } & Pick<UserPage, 'cursor'> & {
-      users: Array<
-        { __typename?: 'User' } & Pick<
-          User,
-          | 'id'
-          | 'name'
-          | 'address'
-          | 'dob'
-          | 'description'
-          | 'lat'
-          | 'lng'
-          | 'createdAt'
-          | 'updatedAt'
-        >
-      >;
-    };
+    users: Array<{ __typename?: 'User' } & Pick<User,
+      | 'id'
+      | 'name'
+      | 'address'
+      | 'dob'
+      | 'description'
+      | 'lat'
+      | 'lng'
+      | 'createdAt'
+      | 'updatedAt'>>;
+  };
 };
 
 export type FindOneQueryVariables = Exact<{
@@ -164,8 +155,7 @@ export type FindOneQueryVariables = Exact<{
 }>;
 
 export type FindOneQuery = { __typename?: 'Query' } & {
-  findOne: { __typename?: 'User' } & Pick<
-    User,
+  findOne: { __typename?: 'User' } & Pick<User,
     | 'id'
     | 'name'
     | 'address'
@@ -174,8 +164,7 @@ export type FindOneQuery = { __typename?: 'Query' } & {
     | 'lat'
     | 'lng'
     | 'createdAt'
-    | 'updatedAt'
-  >;
+    | 'updatedAt'>;
 };
 
 export const AddUserDocument = gql`
@@ -193,10 +182,8 @@ export const AddUserDocument = gql`
     }
   }
 `;
-export type AddUserMutationFn = ApolloReactCommon.MutationFunction<
-  AddUserMutation,
-  AddUserMutationVariables
->;
+export type AddUserMutationFn = ApolloReactCommon.MutationFunction<AddUserMutation,
+  AddUserMutationVariables>;
 
 /**
  * __useAddUserMutation__
@@ -216,24 +203,17 @@ export type AddUserMutationFn = ApolloReactCommon.MutationFunction<
  * });
  */
 export function useAddUserMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    AddUserMutation,
-    AddUserMutationVariables
-  >
+  baseOptions?: ApolloReactHooks.MutationHookOptions<AddUserMutation,
+    AddUserMutationVariables>
 ) {
-  return ApolloReactHooks.useMutation<
-    AddUserMutation,
-    AddUserMutationVariables
-  >(AddUserDocument, baseOptions);
+  return ApolloReactHooks.useMutation<AddUserMutation,
+    AddUserMutationVariables>(AddUserDocument, baseOptions);
 }
+
 export type AddUserMutationHookResult = ReturnType<typeof useAddUserMutation>;
-export type AddUserMutationResult = ApolloReactCommon.MutationResult<
-  AddUserMutation
->;
-export type AddUserMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  AddUserMutation,
-  AddUserMutationVariables
->;
+export type AddUserMutationResult = ApolloReactCommon.MutationResult<AddUserMutation>;
+export type AddUserMutationOptions = ApolloReactCommon.BaseMutationOptions<AddUserMutation,
+  AddUserMutationVariables>;
 export const UpdateUserDocument = gql`
   mutation updateUser($user: UserInput!) {
     updateUser(user: $user) {
@@ -249,10 +229,8 @@ export const UpdateUserDocument = gql`
     }
   }
 `;
-export type UpdateUserMutationFn = ApolloReactCommon.MutationFunction<
-  UpdateUserMutation,
-  UpdateUserMutationVariables
->;
+export type UpdateUserMutationFn = ApolloReactCommon.MutationFunction<UpdateUserMutation,
+  UpdateUserMutationVariables>;
 
 /**
  * __useUpdateUserMutation__
@@ -272,35 +250,24 @@ export type UpdateUserMutationFn = ApolloReactCommon.MutationFunction<
  * });
  */
 export function useUpdateUserMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    UpdateUserMutation,
-    UpdateUserMutationVariables
-  >
+  baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateUserMutation,
+    UpdateUserMutationVariables>
 ) {
-  return ApolloReactHooks.useMutation<
-    UpdateUserMutation,
-    UpdateUserMutationVariables
-  >(UpdateUserDocument, baseOptions);
+  return ApolloReactHooks.useMutation<UpdateUserMutation,
+    UpdateUserMutationVariables>(UpdateUserDocument, baseOptions);
 }
-export type UpdateUserMutationHookResult = ReturnType<
-  typeof useUpdateUserMutation
->;
-export type UpdateUserMutationResult = ApolloReactCommon.MutationResult<
-  UpdateUserMutation
->;
-export type UpdateUserMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  UpdateUserMutation,
-  UpdateUserMutationVariables
->;
+
+export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
+export type UpdateUserMutationResult = ApolloReactCommon.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateUserMutation,
+  UpdateUserMutationVariables>;
 export const DeleteUserDocument = gql`
   mutation deleteUser($id: String!) {
     deleteUser(id: $id)
   }
 `;
-export type DeleteUserMutationFn = ApolloReactCommon.MutationFunction<
-  DeleteUserMutation,
-  DeleteUserMutationVariables
->;
+export type DeleteUserMutationFn = ApolloReactCommon.MutationFunction<DeleteUserMutation,
+  DeleteUserMutationVariables>;
 
 /**
  * __useDeleteUserMutation__
@@ -320,26 +287,17 @@ export type DeleteUserMutationFn = ApolloReactCommon.MutationFunction<
  * });
  */
 export function useDeleteUserMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    DeleteUserMutation,
-    DeleteUserMutationVariables
-  >
+  baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteUserMutation,
+    DeleteUserMutationVariables>
 ) {
-  return ApolloReactHooks.useMutation<
-    DeleteUserMutation,
-    DeleteUserMutationVariables
-  >(DeleteUserDocument, baseOptions);
+  return ApolloReactHooks.useMutation<DeleteUserMutation,
+    DeleteUserMutationVariables>(DeleteUserDocument, baseOptions);
 }
-export type DeleteUserMutationHookResult = ReturnType<
-  typeof useDeleteUserMutation
->;
-export type DeleteUserMutationResult = ApolloReactCommon.MutationResult<
-  DeleteUserMutation
->;
-export type DeleteUserMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  DeleteUserMutation,
-  DeleteUserMutationVariables
->;
+
+export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
+export type DeleteUserMutationResult = ApolloReactCommon.MutationResult<DeleteUserMutation>;
+export type DeleteUserMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteUserMutation,
+  DeleteUserMutationVariables>;
 export const FindAllDocument = gql`
   query findAll($pageInfo: PageInfo!, $criteria: UserCriteria) {
     findAll(pageInfo: $pageInfo, criteria: $criteria) {
@@ -377,33 +335,29 @@ export const FindAllDocument = gql`
  * });
  */
 export function useFindAllQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    FindAllQuery,
-    FindAllQueryVariables
-  >
+  baseOptions?: ApolloReactHooks.QueryHookOptions<FindAllQuery,
+    FindAllQueryVariables>
 ) {
   return ApolloReactHooks.useQuery<FindAllQuery, FindAllQueryVariables>(
     FindAllDocument,
     baseOptions
   );
 }
+
 export function useFindAllLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    FindAllQuery,
-    FindAllQueryVariables
-  >
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<FindAllQuery,
+    FindAllQueryVariables>
 ) {
   return ApolloReactHooks.useLazyQuery<FindAllQuery, FindAllQueryVariables>(
     FindAllDocument,
     baseOptions
   );
 }
+
 export type FindAllQueryHookResult = ReturnType<typeof useFindAllQuery>;
 export type FindAllLazyQueryHookResult = ReturnType<typeof useFindAllLazyQuery>;
-export type FindAllQueryResult = ApolloReactCommon.QueryResult<
-  FindAllQuery,
-  FindAllQueryVariables
->;
+export type FindAllQueryResult = ApolloReactCommon.QueryResult<FindAllQuery,
+  FindAllQueryVariables>;
 export const FindOneDocument = gql`
   query findOne($id: String!) {
     findOne(id: $id) {
@@ -437,30 +391,26 @@ export const FindOneDocument = gql`
  * });
  */
 export function useFindOneQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    FindOneQuery,
-    FindOneQueryVariables
-  >
+  baseOptions?: ApolloReactHooks.QueryHookOptions<FindOneQuery,
+    FindOneQueryVariables>
 ) {
   return ApolloReactHooks.useQuery<FindOneQuery, FindOneQueryVariables>(
     FindOneDocument,
     baseOptions
   );
 }
+
 export function useFindOneLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    FindOneQuery,
-    FindOneQueryVariables
-  >
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<FindOneQuery,
+    FindOneQueryVariables>
 ) {
   return ApolloReactHooks.useLazyQuery<FindOneQuery, FindOneQueryVariables>(
     FindOneDocument,
     baseOptions
   );
 }
+
 export type FindOneQueryHookResult = ReturnType<typeof useFindOneQuery>;
 export type FindOneLazyQueryHookResult = ReturnType<typeof useFindOneLazyQuery>;
-export type FindOneQueryResult = ApolloReactCommon.QueryResult<
-  FindOneQuery,
-  FindOneQueryVariables
->;
+export type FindOneQueryResult = ApolloReactCommon.QueryResult<FindOneQuery,
+  FindOneQueryVariables>;

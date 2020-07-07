@@ -21,7 +21,7 @@ export const UserEditModal = ({ user, cancelFn }: UserEditModalProps) => {
     lat = '37.8',
     lng = '-122.4'
   } = user;
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const [viewport, setViewport] = useState({
     latitude: Number(lat),
     longitude: Number(lng),

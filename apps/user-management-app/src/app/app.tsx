@@ -15,10 +15,6 @@ const client = new ApolloClient({
   uri: 'http://localhost:5555/graphql'
 });
 
-const StyledApp = styled.div`
-  background: whiteSmoke;
-`;
-
 export const App = () => {
   return (
     <ApolloProvider client={client}>

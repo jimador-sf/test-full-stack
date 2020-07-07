@@ -1,7 +1,5 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
-
-import React from 'react';
+import { jsx } from '@emotion/core';
 
 import styled from '@emotion/styled';
 
@@ -40,7 +38,7 @@ const EditIcon = () => (
 export const UserEditButton = ({ action }: UserEditButtonProps) => {
   return (
     <EditPencil onClick={action}>
-      <EditIcon />
+      <EditIcon/>
     </EditPencil>
   );
 };

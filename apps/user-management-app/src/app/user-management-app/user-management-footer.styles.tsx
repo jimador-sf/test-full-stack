@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Grid, Cell } from '../../../../../libs/feature-sets/src/lib/util/grid';
 import React from 'react';
+import { Grid, Cell } from './grid';
 
 export const StyledUserManagementFooter = (props) => {
   return <Grid justifyContent={'space-evenly'} alignContent={'space-evenly'} columns={3} row={1} {...props}  />;

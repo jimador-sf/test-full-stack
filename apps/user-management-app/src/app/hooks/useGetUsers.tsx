@@ -1,6 +1,6 @@
 import { User, useFindAllQuery } from '@test-full-stack/data-access';
 import { usePagination } from './usePagination';
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 
 export const sleep = async (sleepTimeMs: number): Promise<number> =>
   new Promise(resolve => setTimeout(resolve, sleepTimeMs));
@@ -10,11 +10,10 @@ export const sleep = async (sleepTimeMs: number): Promise<number> =>
  */
 export const useGetUsers = (name?: string): [User[], Dispatch<SetStateAction<number>>] => {
   const [current, addPage] = usePagination();
-  const [snooze, setSnooze] = useState(false);
 
   const getNextPage = useCallback(() => {
     addPage(1);
-  }, [current, addPage]);
+  }, [addPage]);
   const reset = () => addPage(current * -1);
   if (name && current > 1) {
     reset();

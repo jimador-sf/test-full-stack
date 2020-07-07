@@ -13,8 +13,20 @@ export const latLngGen: () => f.Sync.Generator<{
   lat: string;
   lng: string;
 }> = () => f.each(() => {
-  const {lat, lng} = faker.helpers.userCard().address.geo;
+  const { lat, lng } = faker.helpers.userCard().address.geo;
   return {
     lat, lng
-  }
+  };
 });
+
+
+export const usersGen = (count = 6) => f.Sync.makeFactory({
+  id: nameGen(),
+  address: addressGen(),
+  createdAt: dateGen(),
+  description: descriptionGen(),
+  dob: dateGen(),
+  name: nameGen(),
+  updatedAt: new Date(),
+  ...latLngGen().build(1)
+}).buildList(count);
