@@ -3,7 +3,7 @@ import { white } from '../styles/global';
 
 const shadow = {
   boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1);'
-}
+};
 
 export const StyledUserCard = styled.div({
   display: 'grid',
@@ -13,7 +13,7 @@ export const StyledUserCard = styled.div({
   width: '400px',
   height: '336px',
   '&:hover': shadow,
-  '&:focus': shadow,
+  '&:focus': shadow
 });
 
 export const UserName = styled.div({
@@ -47,7 +47,7 @@ export const Description = styled.div({
   display: 'flex',
   alignItems: 'center',
 
-  margin: '276px 32px 40px 32px',
+  margin: '276px 32px 40px 32px'
 
 });
 
@@ -58,4 +58,4 @@ export const Truncate = styled.div({
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   fitContent: 'min(max-content, max(min-content, fill-available))'
-})
+});

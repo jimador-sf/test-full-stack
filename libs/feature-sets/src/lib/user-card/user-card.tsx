@@ -3,7 +3,7 @@ import { StyledUserCard, UserName, Description, Truncate } from './user-card.sty
 import UserAvatar from '../user-avatar/user-avatar';
 import { Cell } from '../util/grid';
 import { UserEditButton } from '../user-edit-button/user-edit-button';
-import {UserEditModal} from '../user-edit-modal/user-edit-modal';
+import { UserEditModal } from '../user-edit-modal/user-edit-modal';
 import { User } from '@test-full-stack/data-access';
 import { useModal } from 'react-modal-hook/dist';
 import ReactModal from 'react-modal';
@@ -24,7 +24,7 @@ const contentStyles = {
 
 const overlayStyle = {
   background: `rgba(0, 0, 0, 0.3)`
-}
+};
 
 // TODO God Component
 export const UserCard = ({ user, imageSrc }: UserCardProps) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import UserCard from '../user-card/user-card';
 import { StyledUserList, UserListContainer, PlaceHolder, UserListWrapper } from './user-list.styles';
 import { User } from '@test-full-stack/data-access';
-import * as faker from 'faker'
+import * as faker from 'faker';
 
 
 export interface UserListProps {

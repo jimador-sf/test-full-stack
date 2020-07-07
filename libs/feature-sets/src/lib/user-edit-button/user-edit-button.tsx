@@ -13,8 +13,8 @@ const pencil = css`
   top: 8%;
   right: 8%;
   font-size: 10px;
-`
-const EditPencil = styled.button(pencil)
+`;
+const EditPencil = styled.button(pencil);
 
 export const UserEditButton = ({ action }: UserEditButtonProps) => {
   return (

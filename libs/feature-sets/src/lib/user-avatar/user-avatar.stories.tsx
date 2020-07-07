@@ -4,7 +4,7 @@ import hipster from './hipster.png';
 
 export default {
   component: UserAvatar,
-  title: 'UserAvatar',
+  title: 'UserAvatar'
 };
 
 export const primary = () => (<UserAvatar src={hipster}/>);

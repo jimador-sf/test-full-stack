@@ -5,7 +5,7 @@ import UserEditButton from './user-edit-button';
 
 describe(' UserEditButton', () => {
   it('should render successfully', () => {
-    const noop = jest.fn
+    const noop = jest.fn;
     const { baseElement } = render(<UserEditButton action={noop}/>);
     expect(baseElement).toBeTruthy();
   });

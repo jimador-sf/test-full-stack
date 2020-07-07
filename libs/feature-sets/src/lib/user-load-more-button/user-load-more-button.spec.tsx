@@ -5,7 +5,7 @@ import UserLoadMoreButton from './user-load-more-button';
 
 describe(' UserLoadMoreButton', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<UserLoadMoreButton />);
+    const { baseElement } = render(<UserLoadMoreButton/>);
     expect(baseElement).toBeTruthy();
   });
 });

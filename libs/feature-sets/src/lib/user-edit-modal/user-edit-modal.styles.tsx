@@ -1,5 +1,6 @@
 import { css, keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
+import React from 'react';
 
 export const inputControlCss = css`
   width: 621.5px;
@@ -141,3 +142,24 @@ export const Pulse = styled.div`
     animation-delay: 1.1s;
 }
 `;
+
+
+export const Input = styled.input(inputCss);
+
+export const InputLabel = styled.label(inputLabelCss);
+
+export const Form = styled.form(formCss);
+
+export const InputControl = styled.div(inputControlCss);
+
+export const StyledUserEditModal = styled.div`
+  width: 90%;
+  height: 90%;
+  display: grid;
+  margin-left: 42px;
+  place-items: center;
+`;
+
+export const HeaderText = styled.div(headerText);
+
+export const MarkerElement = () => <><Pin/><Pulse/></>;

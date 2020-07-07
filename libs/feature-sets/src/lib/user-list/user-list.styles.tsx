@@ -12,7 +12,7 @@ export const userListCss = css`
   justifyContent: 'space-around';
   width: '100%';
   height: '100%';
-`
+`;
 
 export const UserListWrapper = (props) => {
   return <Grid {...props} />;

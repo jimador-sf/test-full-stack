@@ -1,7 +1,7 @@
 import React from 'react';
 import { Global, css } from '@emotion/core';
 
-export const [black, whiteSmoke, white] = ['#000000', '#F8F8F8', '#FFFFFF'] as const
+export const [black, whiteSmoke, white] = ['#000000', '#F8F8F8', '#FFFFFF'] as const;
 
 const fontCss = css`
   @font-face{

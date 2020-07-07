@@ -1,9 +1,7 @@
 import React, { useState, useCallback } from 'react';
-
-import styled from '@emotion/styled';
 import { Grid, Cell } from '../util/grid';
 import UserButton from '../user-button/user-button';
-import { inputCss, inputLabelCss, formCss, inputControlCss, headerText, Pin, Pulse } from './user-edit-modal.styles';
+import { StyledUserEditModal, HeaderText, MarkerElement, Form, InputControl, InputLabel, Input } from './user-edit-modal.styles';
 import { useForm } from 'react-hook-form';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { InteractiveMap, Marker } from 'react-map-gl';
@@ -17,26 +15,6 @@ export interface UserEditModalProps {
   user: User;
   cancelFn: () => void;
 }
-
-const Input = styled.input(inputCss);
-
-const InputLabel = styled.label(inputLabelCss);
-
-const Form = styled.form(formCss);
-
-const InputControl = styled.div(inputControlCss);
-
-const StyledUserEditModal = styled.div`
-  width: 90%;
-  height: 90%;
-  display: grid;
-  margin-left: 42px;
-  place-items: center;
-`;
-
-const HeaderText = styled.div(headerText);
-
-const MarkerElement = () => <><Pin/><Pulse/></>;
 
 export const UserEditModal = ({ user, cancelFn }: UserEditModalProps) => {
   const {
@@ -58,12 +36,12 @@ export const UserEditModal = ({ user, cancelFn }: UserEditModalProps) => {
 
   const onSubmit = async (formData) => {
     const { longitude, latitude } = viewport;
-    const address = addressValue || user.address
+    const address = addressValue || user.address;
     const updates = { ...formData, lat: `${latitude}`, lng: `${longitude}` };
     const userInput = { ...user, ...updates, address, __typename: undefined };
     try {
-      console.log(`Saving ${JSON.stringify(userInput)}`)
-      console.log(`address was ${address}`)
+      console.log(`Saving ${JSON.stringify(userInput)}`);
+      console.log(`address was ${address}`);
 
       const { data, errors } = await updateUserMutation({ variables: { user: userInput } });
       if (data.updateUser) {
@@ -87,11 +65,11 @@ export const UserEditModal = ({ user, cancelFn }: UserEditModalProps) => {
   const handleViewChange = (updated, newAddress = undefined) => {
     console.log(`handleGeocoderViewportChange: ${JSON.stringify(updated)}`);
     const overrides = { transitionDuration: 250 };
-    setViewport({ ...updated, ...overrides })
+    setViewport({ ...updated, ...overrides });
     if (newAddress) {
       setAddressValue(newAddress);
     }
-  }
+  };
 
   return (
     // TODO - God component

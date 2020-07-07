@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 
-import React, { forwardRef } from 'react';
+import React from 'react';
 import AlgoliaPlaces from 'algolia-places-react';
 import { inputCss } from '../user-edit-modal/user-edit-modal.styles';
 
 const styles = css`
 ${inputCss}
 text-indent: 0;
-`
+`;
 
 export const UserSearchInput = (props) => {
   return <AlgoliaPlaces css={styles}

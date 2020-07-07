@@ -1,5 +1,5 @@
 import * as f from 'factory.ts';
-import * as faker from "faker";
+import * as faker from 'faker';
 import { IUser } from '../../../../../apps/user-management-api/src/domain';
 
 export const nameGen: () => f.Sync.Generator<string> = () => f.each(() => faker.helpers.userCard().name);
@@ -14,10 +14,10 @@ export const latLngGen: () => f.Sync.Generator<{
   lat: string;
   lng: string;
 }> = () => f.each(() => {
-  const {lat, lng} = faker.helpers.userCard().address.geo;
+  const { lat, lng } = faker.helpers.userCard().address.geo;
   return {
     lat, lng
-  }
+  };
 });
 
 

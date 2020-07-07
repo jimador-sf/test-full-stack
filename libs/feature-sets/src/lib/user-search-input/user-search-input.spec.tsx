@@ -5,7 +5,7 @@ import UserSearchInput from './user-search-input';
 
 describe(' UserSearchInput', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<UserSearchInput />);
+    const { baseElement } = render(<UserSearchInput/>);
     expect(baseElement).toBeTruthy();
   });
 });

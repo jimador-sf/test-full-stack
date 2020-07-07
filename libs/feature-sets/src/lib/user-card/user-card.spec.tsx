@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import * as faker from 'faker';
 
 import UserCard, { UserCardProps } from './user-card';
 import { usersGen } from '../util/user-faker';
@@ -11,7 +10,7 @@ describe(' UserCard', () => {
     const props: UserCardProps = {
       user: usersGen()[0],
       imageSrc: 'random/url'
-    }
+    };
     const { baseElement } = render(<ModalProvider><UserCard {...props} /></ModalProvider>);
     expect(baseElement).toBeTruthy();
   });

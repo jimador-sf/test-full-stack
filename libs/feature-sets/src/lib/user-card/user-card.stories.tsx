@@ -1,6 +1,5 @@
 import React from 'react';
 import { UserCard, UserCardProps } from './user-card';
-import { text } from '@storybook/addon-knobs';
 import * as f from 'factory.ts';
 import { User } from '@test-full-stack/data-access';
 import { nameGen, addressGen, dateGen, descriptionGen, latLngGen } from '../../../../../apps/user-management-api/test/user.fakes';
