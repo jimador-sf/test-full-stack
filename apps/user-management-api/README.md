@@ -1,5 +1,9 @@
 ##User Management API
 
+### Submitted by: 
+James Dunnam
+[Kanban board](https://github.com/jimador-sf/test-full-stack/projects/1)
+
 ### About
 TypeScript/NodeJS AWS lambda GraphQL API for User Management.
 
