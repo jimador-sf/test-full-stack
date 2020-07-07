@@ -8,13 +8,10 @@ export interface Scalars {
   ISODateScalar: Date;
 }
 
-export interface IUser extends IUserInput{
+export interface IUser {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-}
-
-export interface IUserInput {
   name: string;
   dob: Date;
   address: string;

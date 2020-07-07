@@ -1,7 +1,7 @@
 import dynamoDb from '../configuration/DatabaseConfiguration';
 import { v1 } from 'uuid';
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
-import { IUserInput, IUser, IUserCriteria, IPageInfo, IUserPage } from '../domain';
+import { IUser, IUserCriteria, IPageInfo, IUserPage } from '../domain';
 import { getPage } from './pagination-util';
 
 export const UserTableName = 'User';
@@ -19,7 +19,7 @@ const byId = (userId: string): DocumentClient.GetItemInput =>
  * @param userInput the user data to save or update
  * @param userId the user id to update.
  */
-const saveOrUpdate = (userInput: IUserInput, userId?: string):
+const saveOrUpdate = (userInput: IUser, userId?: string):
   DocumentClient.PutItemInput => {
   const id = userId == null ?  v1() : userId;
   const now = new Date().toISOString();
@@ -37,6 +37,12 @@ const saveOrUpdate = (userInput: IUserInput, userId?: string):
   };
 };
 
+const criteriaExists = (criteria: IUserCriteria) => criteria && criteria.name
+
+export const nameFilter = (user: IUser, criteria?: IUserCriteria) => {
+  return !criteriaExists(criteria) || criteria.name !== user.name
+}
+
 
 /**
  * Repository interface for {@link User} CRUD methods
@@ -46,7 +52,8 @@ export interface UserRepository {
 
   findOne(userId: string): Promise<IUser | undefined>
 
-  save(user: IUserInput, userId?: string): Promise<IUser>
+  // TODO Id deprecated
+  save(user: IUser, userId?: string): Promise<IUser>
 
   delete(userId: string): Promise<void>;
 }
@@ -58,9 +65,15 @@ export const userRepository: UserRepository = new (class implements UserReposito
 
   // TODO - Tech Debt - remove `any`
   // TODO - Tech Debt - user query perf
+  // TODO - Tech Debt - In-memory filtering
   async findAll(pageInfo: IPageInfo, criteria?: IUserCriteria): Promise<IUserPage> {
     const result = await dynamoDb.scan(UserTable).promise();
-    const { items, cursor } = getPage(result.Items as IUser[], pageInfo);
+
+    const filtered = (result.Items as IUser[])
+      .filter(u => nameFilter(u, criteria))
+
+    console.warn(`Got: ${filtered.length} items`)
+    const { items, cursor } = getPage(filtered, pageInfo);
     return {
       users: items,
       cursor: `${cursor}`
@@ -74,17 +87,21 @@ export const userRepository: UserRepository = new (class implements UserReposito
     return r.Item as any;
   }
 
-  async save(userInput: IUserInput, userId?: string): Promise<IUser> {
-    const params = saveOrUpdate(userInput, userId);
-    await dynamoDb.put(params).promise();
-    const saved = await this.findOne(params.Item.id);
-    return saved;
+  async save(userInput: IUser, userId?: string): Promise<IUser> {
+    try {
+      const params = saveOrUpdate(userInput, userId);
+      await dynamoDb.put(params).promise();
+      const saved = await this.findOne(params.Item.id);
+      return saved;
+    } catch ( e ) {
+      console.error(`Error saving ${userId}`)
+      console.error(`${e.message}`)
+    }
   }
 
   async delete(id: string): Promise<void> {
     const params = byId(id);
     await dynamoDb.delete(params).promise();
   }
-
 
 })();

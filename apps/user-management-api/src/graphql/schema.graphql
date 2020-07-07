@@ -9,7 +9,7 @@ scalar IsoDateScalar
 type Mutation {
   addUser(user: UserInput!): User!
   deleteUser(id: String!): Boolean!
-  updateUser(id: String!, user: UserInput!): User!
+  updateUser(user: UserInput!): User!
 }
 
 input PageInfo {
@@ -40,11 +40,14 @@ input UserCriteria {
 
 input UserInput {
   address: String!
+  createdAt: IsoDateScalar!
   description: String!
   dob: IsoDateScalar!
+  id: ID!
   lat: String!
   lng: String!
   name: String!
+  updatedAt: IsoDateScalar!
 }
 
 type UserPage {

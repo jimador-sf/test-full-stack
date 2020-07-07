@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 
-import React from 'react';
+import React, { forwardRef } from 'react';
 import AlgoliaPlaces from 'algolia-places-react';
 import { inputCss } from '../user-edit-modal/user-edit-modal.styles';
 

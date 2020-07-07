@@ -8,15 +8,14 @@ import { useForm } from 'react-hook-form';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { InteractiveMap, Marker } from 'react-map-gl';
 import UserSearchInput from '../user-search-input/user-search-input';
-import { User } from '@test-full-stack/data-access';
+import { User, useUpdateUserMutation } from '@test-full-stack/data-access';
 
-const TOTALLY_NOT_A_MAPBOX_TOKEN_STORED_IN_SOURCE_CONTROL = `pk.eyJ1IjoiamR1bm5hbSIsImEiOiJja2M3dDIzMTkwNnZ2MnBwcTVkbGw0NW4wIn0.gWACb0ktQ7RGC8oOXHiuNQ`
+const TOTALLY_NOT_A_MAPBOX_TOKEN_STORED_IN_SOURCE_CONTROL = `pk.eyJ1IjoiamR1bm5hbSIsImEiOiJja2M3dDIzMTkwNnZ2MnBwcTVkbGw0NW4wIn0.gWACb0ktQ7RGC8oOXHiuNQ`;
 
 /* eslint-disable-next-line */
 export interface UserEditModalProps {
   user: User;
   cancelFn: () => void;
-  submitFn?: (user: User) => void;
 }
 
 const Input = styled.input(inputCss);
@@ -37,16 +36,14 @@ const StyledUserEditModal = styled.div`
 
 const HeaderText = styled.div(headerText);
 
-const MarkerElement = () => <><Pin/><Pulse/></>
+const MarkerElement = () => <><Pin/><Pulse/></>;
 
-export const UserEditModal = ({user, submitFn, cancelFn}: UserEditModalProps) => {
+export const UserEditModal = ({ user, cancelFn }: UserEditModalProps) => {
   const {
     lat = '37.8',
     lng = '-122.4'
-  } = user
+  } = user;
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => console.log(data);
-
   const [viewport, setViewport] = useState({
     latitude: Number(lat),
     longitude: Number(lng),
@@ -55,20 +52,46 @@ export const UserEditModal = ({user, submitFn, cancelFn}: UserEditModalProps) =>
     pitch: 0
   });
 
+  const [addressValue, setAddressValue] = useState();
+
+  const [updateUserMutation] = useUpdateUserMutation();
+
+  const onSubmit = async (formData) => {
+    const { longitude, latitude } = viewport;
+    const address = addressValue || user.address
+    const updates = { ...formData, lat: `${latitude}`, lng: `${longitude}` };
+    const userInput = { ...user, ...updates, address, __typename: undefined };
+    try {
+      console.log(`Saving ${JSON.stringify(userInput)}`)
+      console.log(`address was ${address}`)
+
+      const { data, errors } = await updateUserMutation({ variables: { user: userInput } });
+      if (data.updateUser) {
+        console.log(`Successfully saved: ${JSON.stringify(data.updateUser)}`);
+        cancelFn();
+      } else {
+        console.log(`Error saving ${userInput.id}: ${JSON.stringify(userInput)}`);
+        errors.map(e => console.error(`Error: ${e.message}`));
+      }
+    } catch ( e ) {
+      console.error(e.message);
+    }
+
+  };
+
   const handleViewportChange = useCallback(updated => {
     console.log(`handleViewportChange: ${JSON.stringify(updated)}`);
     setViewport({ ...viewport, ...updated });
   }, [viewport]);
 
-  const handleGeocoderViewportChange = useCallback(updated => {
+  const handleViewChange = (updated, newAddress = undefined) => {
     console.log(`handleGeocoderViewportChange: ${JSON.stringify(updated)}`);
-    const geocoderDefaultOverrides = { transitionDuration: 250 };
-
-    return handleViewportChange({
-      ...updated,
-      ...geocoderDefaultOverrides
-    });
-  }, [viewport, handleViewportChange]);
+    const overrides = { transitionDuration: 250 };
+    setViewport({ ...updated, ...overrides })
+    if (newAddress) {
+      setAddressValue(newAddress);
+    }
+  }
 
   return (
     // TODO - God component
@@ -100,14 +123,14 @@ export const UserEditModal = ({user, submitFn, cancelFn}: UserEditModalProps) =>
                     offsetLeft={-20}
                     offsetTop={-10}
                     draggable={true}
-                    onDragEnd={(({lngLat}) => {
-                      const [lng, lat] = lngLat
-                      handleGeocoderViewportChange(
+                    onDragEnd={(({ lngLat }) => {
+                      const [lng, lat] = lngLat;
+                      handleViewChange(
                         {
                           latitude: lat,
                           longitude: lng
                         }
-                      )
+                      );
                     })}
             >
               {viewport.latitude && viewport.longitude && <MarkerElement/>}
@@ -121,25 +144,28 @@ export const UserEditModal = ({user, submitFn, cancelFn}: UserEditModalProps) =>
               <InputLabel htmlFor={'name'}>Name</InputLabel>
               <br/>
               <Input type="text"
-                     name="Name"
+                     name="name"
                      id={'name'}
                      defaultValue={user.name}
                      ref={register({ required: true, max: 100, min: 1, maxLength: 100 })}
               />
             </InputControl>
             <InputControl>
-              <InputLabel htmlFor={'location'}>Location</InputLabel>
+              <InputLabel htmlFor={'address'}>Location</InputLabel>
               <br/>
               <UserSearchInput
-                htmlFor={'location'}
+                htmlFor={'address'}
+                name={'address'}
+                ref={register({ required: true })}
                 defaultValue={user.address}
-                onChange={({ suggestion }) =>
-                  handleGeocoderViewportChange(
-                    {
-                      latitude: suggestion.latlng.lat,
-                      longitude: suggestion.latlng.lng
-                    }
-                  )
+                onChange={
+                  ({ suggestion: { latlng, value } }) => {
+                    const updated = {
+                      latitude: latlng.lat,
+                      longitude: latlng.lng
+                    };
+                    handleViewChange(updated, value);
+                  }
                 }
               />
             </InputControl>
@@ -147,7 +173,7 @@ export const UserEditModal = ({user, submitFn, cancelFn}: UserEditModalProps) =>
               <InputLabel htmlFor={'description'}>Description</InputLabel>
               <br/>
               <Input type="text"
-                     name="Description"
+                     name="description"
                      id={'description'}
                      defaultValue={user.description}
                      ref={register({ required: true, max: 4000, min: 1, maxLength: 4000 })}/>
@@ -155,7 +181,7 @@ export const UserEditModal = ({user, submitFn, cancelFn}: UserEditModalProps) =>
           </Form>
         </Cell>
         <Cell area={'save'} middle style={{ width: '88%', margin: '0px auto' }}>
-          <UserButton action={handleSubmit(data => alert(JSON.stringify({...user, ...data})))} buttonText={'Save'}/>
+          <UserButton action={handleSubmit(onSubmit)} buttonText={'Save'}/>
         </Cell>
         <Cell area={'cancel'} middle style={{ width: '66%', margin: '0px auto' }}>
           <UserButton action={cancelFn} buttonText={'Cancel'}/>

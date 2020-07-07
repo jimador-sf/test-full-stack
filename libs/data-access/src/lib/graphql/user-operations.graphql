@@ -1,20 +1,26 @@
 mutation addUser($user: UserInput!) {
   addUser(user: $user) {
+    id
     name
     address
     dob
     description
+    lat
+    lng
     createdAt
     updatedAt
   }
 }
 
-mutation updateUser($id: String!, $user: UserInput!) {
-  updateUser(id: $id, user: $user) {
+mutation updateUser($user: UserInput!) {
+  updateUser(user: $user) {
+    id
     name
     address
     dob
     description
+    lat
+    lng
     createdAt
     updatedAt
   }
@@ -30,10 +36,10 @@ query findAll($pageInfo: PageInfo!, $criteria: UserCriteria) {
       id
       name
       address
-      lat
-      lng
       dob
       description
+      lat
+      lng
       createdAt
       updatedAt
     }
@@ -43,10 +49,13 @@ query findAll($pageInfo: PageInfo!, $criteria: UserCriteria) {
 
 query findOne($id: String!) {
   findOne(id: $id) {
+    id
     name
     address
     dob
     description
+    lat
+    lng
     createdAt
     updatedAt
   }

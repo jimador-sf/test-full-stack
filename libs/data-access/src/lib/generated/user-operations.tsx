@@ -30,7 +30,6 @@ export type MutationDeleteUserArgs = {
 };
 
 export type MutationUpdateUserArgs = {
-  id: Scalars['String'];
   user: UserInput;
 };
 
@@ -73,11 +72,14 @@ export type UserCriteria = {
 
 export type UserInput = {
   address: Scalars['String'];
+  createdAt: Scalars['IsoDateScalar'];
   description: Scalars['String'];
   dob: Scalars['IsoDateScalar'];
+  id: Scalars['ID'];
   lat: Scalars['String'];
   lng: Scalars['String'];
   name: Scalars['String'];
+  updatedAt: Scalars['IsoDateScalar'];
 };
 
 export type UserPage = {
@@ -93,19 +95,34 @@ export type AddUserMutationVariables = Exact<{
 export type AddUserMutation = { __typename?: 'Mutation' } & {
   addUser: { __typename?: 'User' } & Pick<
     User,
-    'name' | 'address' | 'dob' | 'description' | 'createdAt' | 'updatedAt'
+    | 'id'
+    | 'name'
+    | 'address'
+    | 'dob'
+    | 'description'
+    | 'lat'
+    | 'lng'
+    | 'createdAt'
+    | 'updatedAt'
   >;
 };
 
 export type UpdateUserMutationVariables = Exact<{
-  id: Scalars['String'];
   user: UserInput;
 }>;
 
 export type UpdateUserMutation = { __typename?: 'Mutation' } & {
   updateUser: { __typename?: 'User' } & Pick<
     User,
-    'name' | 'address' | 'dob' | 'description' | 'createdAt' | 'updatedAt'
+    | 'id'
+    | 'name'
+    | 'address'
+    | 'dob'
+    | 'description'
+    | 'lat'
+    | 'lng'
+    | 'createdAt'
+    | 'updatedAt'
   >;
 };
 
@@ -131,10 +148,10 @@ export type FindAllQuery = { __typename?: 'Query' } & {
           | 'id'
           | 'name'
           | 'address'
-          | 'lat'
-          | 'lng'
           | 'dob'
           | 'description'
+          | 'lat'
+          | 'lng'
           | 'createdAt'
           | 'updatedAt'
         >
@@ -149,17 +166,28 @@ export type FindOneQueryVariables = Exact<{
 export type FindOneQuery = { __typename?: 'Query' } & {
   findOne: { __typename?: 'User' } & Pick<
     User,
-    'name' | 'address' | 'dob' | 'description' | 'createdAt' | 'updatedAt'
+    | 'id'
+    | 'name'
+    | 'address'
+    | 'dob'
+    | 'description'
+    | 'lat'
+    | 'lng'
+    | 'createdAt'
+    | 'updatedAt'
   >;
 };
 
 export const AddUserDocument = gql`
   mutation addUser($user: UserInput!) {
     addUser(user: $user) {
+      id
       name
       address
       dob
       description
+      lat
+      lng
       createdAt
       updatedAt
     }
@@ -207,12 +235,15 @@ export type AddUserMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddUserMutationVariables
 >;
 export const UpdateUserDocument = gql`
-  mutation updateUser($id: String!, $user: UserInput!) {
-    updateUser(id: $id, user: $user) {
+  mutation updateUser($user: UserInput!) {
+    updateUser(user: $user) {
+      id
       name
       address
       dob
       description
+      lat
+      lng
       createdAt
       updatedAt
     }
@@ -236,7 +267,6 @@ export type UpdateUserMutationFn = ApolloReactCommon.MutationFunction<
  * @example
  * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
  *   variables: {
- *      id: // value for 'id'
  *      user: // value for 'user'
  *   },
  * });
@@ -317,10 +347,10 @@ export const FindAllDocument = gql`
         id
         name
         address
-        lat
-        lng
         dob
         description
+        lat
+        lng
         createdAt
         updatedAt
       }
@@ -377,10 +407,13 @@ export type FindAllQueryResult = ApolloReactCommon.QueryResult<
 export const FindOneDocument = gql`
   query findOne($id: String!) {
     findOne(id: $id) {
+      id
       name
       address
       dob
       description
+      lat
+      lng
       createdAt
       updatedAt
     }

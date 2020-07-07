@@ -1,7 +1,7 @@
 import * as TypeGraphQL from 'type-graphql';
 import { Resolver, Query, Arg, Mutation, ObjectType, Field, InputType } from 'type-graphql';
 import { userRepository } from '../repository/UserRepository';
-import { IUser, IUserInput, IUserCriteria, IPageInfo, IUserPage } from '../domain';
+import { IUser, IUserCriteria, IPageInfo, IUserPage } from '../domain';
 
 @ObjectType()
 class UserPage implements IUserPage {
@@ -12,8 +12,8 @@ class UserPage implements IUserPage {
   cursor: string;
 }
 
-/** User domain object */
-@ObjectType()
+@InputType('UserInput')
+@ObjectType('User')
 class User implements IUser {
 
   @Field((_type) => TypeGraphQL.ID)
@@ -42,28 +42,6 @@ class User implements IUser {
 
   @Field((_type) => Date)
   updatedAt: Date;
-}
-
-/** User create input. */
-@InputType()
-class UserInput implements IUserInput {
-  @Field((_type) => String)
-  name: string;
-
-  @Field((_type) => Date)
-  dob: Date;
-
-  @Field((_type) => String)
-  address: string;
-
-  @Field((_type) => String)
-  description: string;
-
-  @Field((_type) => String)
-  lat: string;
-
-  @Field((_type) => String)
-  lng: string;
 }
 
 @InputType()
@@ -103,15 +81,14 @@ export class UserResolver {
   }
 
   @Mutation(_ => User)
-  async addUser(@Arg('user') user: UserInput): Promise<User> {
+  async addUser(@Arg('user') user: User): Promise<User> {
     const result = await userRepository.save(user);
     return result;
   }
 
   @Mutation(_ => User)
-  async updateUser(@Arg('user') user: UserInput,
-                   @Arg('id') id: string): Promise<User> {
-    const result = await userRepository.save(user, id);
+  async updateUser(@Arg('user') user: User): Promise<User> {
+    const result = await userRepository.save(user, user.id);
     return result;
   }
 
