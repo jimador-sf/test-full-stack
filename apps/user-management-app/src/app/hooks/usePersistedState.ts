@@ -36,9 +36,10 @@ export function usePersistedState<T>(
  */
 export const readFromStorageOrDefault =
   <T>(key: string, defaultValue: unknown = null): T => {
-    const item = readFromStorage(key) ?? 'null';
+    const value = readFromStorage(key);
+    const item = value == null ? 'null' : value;
     const res = JSON.parse(item);
-    return res ?? defaultValue;
+    return res == null ? defaultValue : res;
   };
 
 /**

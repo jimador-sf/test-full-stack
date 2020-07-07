@@ -37,6 +37,6 @@ jobs:
           CI: true
 
       - name: Build
-        run: yarn build
+        run: yarn nx run-many --target=build --all
         env:
           CI: true

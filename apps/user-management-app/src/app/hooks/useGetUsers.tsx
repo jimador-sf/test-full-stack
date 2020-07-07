@@ -1,6 +1,7 @@
 import { User, useFindAllQuery } from '@test-full-stack/data-access';
 import { usePagination } from './usePagination';
 import { Dispatch, SetStateAction, useCallback } from 'react';
+import { v1 } from 'uuid';
 
 /**
  * Hook to get the initial use list and a function to get the next list of users.
@@ -26,8 +27,8 @@ export const useGetUsers = (): [User[], Dispatch<SetStateAction<number>>] => {
   }
 
   if (data) {
-    const result = data.findAll;
-    return [result.users ?? [], getNextPage];
+    const { users } = data.findAll;
+    return [users, getNextPage];
   }
 
   if (error) {

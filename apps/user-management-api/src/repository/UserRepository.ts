@@ -21,7 +21,7 @@ const byId = (userId: string): DocumentClient.GetItemInput =>
  */
 const saveOrUpdate = (userInput: IUserInput, userId?: string):
   DocumentClient.PutItemInput => {
-  const id = userId ?? v1();
+  const id = userId == null ?  v1() : userId;
   const now = new Date().toISOString();
   const dob = userInput.dob.toISOString();
 
