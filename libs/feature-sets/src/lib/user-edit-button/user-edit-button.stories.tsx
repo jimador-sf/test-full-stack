@@ -7,8 +7,10 @@ export default {
 };
 
 export const primary = () => {
-  /* eslint-disable-next-line */
-  const props: UserEditButtonProps = {};
+  const can = () => alert('ouch')
+  const props: UserEditButtonProps = {
+    action: can
+  };
 
-  return <UserEditButton/>;
+  return <UserEditButton {...props} />;
 };
