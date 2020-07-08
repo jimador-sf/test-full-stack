@@ -33,7 +33,7 @@ A dependency graph for the project can be generated with `yarn nx dep-graph`.
 - Storybook
 
 ## GraphQL Schema
-The GQL schema can be found [here](./src/graphql/schema.graphql). The TS API is built with 
+The GQL schema can be found [here](apps/user-management-api/src/graphql/schema.graphql). The TS API is built with 
 [TypeGraphQL](https://typegraphql.com/) and then the schema is generated from the TypeScript types. 
 
 ## Serverless
@@ -54,6 +54,7 @@ yarn install
 
 - Start DynamoDB
 ```bash
+cd apps/user-management-api
 sls dynamodb start 
 ```
 This will start a local DynamoDB instance (via serverless) running on port 8000. When starting DynamoDB via 
